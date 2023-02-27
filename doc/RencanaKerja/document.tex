@@ -16,7 +16,7 @@
 \makeatletter
 \renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
 \renewcommand{\thispagestyle}[1]{}
-\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Genap 2016/2017}}}
+\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Genap 2022/2023}}}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.4mm}}
 \renewcommand{\baselinestretch}{1}
@@ -31,9 +31,9 @@
 \author{\nama \textendash \@npm} 
 
 %tulis nama dan NPM anda di sini:
-\newcommand{\nama}{Lionov}
-\newcommand{\@npm}{1997730020}
-\newcommand{\@judultopik}{Simulasi Kerumunan di Museum} % Judul/topik anda
+\newcommand{\nama}{Bosnich Timothy Bonsaleng}
+\newcommand{\@npm}{2017730086}
+\newcommand{\@judultopik}{Pemvisualisasi Hasil Penelitian Area Hijau Kelurahan} % Judul/topik anda
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
 \newcommand{\tanggal}{01/01/1900}
 
@@ -44,37 +44,50 @@
 \pagenumbering{arabic}
 
 \section{Deskripsi}
-Tuliskan deskripsi dari topik skripsi yang akan anda ajukan. Di sini dapat dituliskan latar belakang, seperti apa penelitian yang sudah ada sebelumnya dan apa yang akan anda kerjakan. Sertakan gambar agar penjelasan anda menjadi lebih baik.
+Penelitian yang telah dilakukan oleh Dr.Veronica S.Moertini, Fritz H. Hutapea SKom, dan Juan A. Kusjadi menghasilkan data area hijau dari Citra satelit pada Kota Bandung yang dibagi menjadi beberapa kelurahan atau kecamatan Kota Bandung.Citra satelit sendiri merupakan gambar dari bumi yang didapatkan satelit.Hasil dari penelitian terdiri dari area hijau untuk 149 kelurahan di 30 kecamatan kota Bandung dan telah selesai dilakukan perhitungan.
+ 
+%Tuliskan deskripsi dari topik skripsi yang akan anda ajukan. Di sini dapat dituliskan latar belakang, seperti apa penelitian yang sudah ada sebelumnya dan apa yang akan anda kerjakan. Sertakan gambar agar penjelasan anda menjadi lebih baik.
+Pada Skripsi ini, akan dibangun sebuah laman web yang bertujuan untuk pemvisualisasian dari hasil penelitian area hijau Kota Bandung.Laman web yang akan dibangun harusnya dapat diakses melalui komputer atau laptop,handphone bersistem android ataupun iOS.Dan akan dibantu dengan menggunakan \emph{Framework} dan \emph{Libary} yang sudah ada, sehingga memudahkan pengembang untuk membangun perangkat lunak.Dengan adanya laman web pemvisualisasian ini memudahkan pengguna untuk mengetahui area-area hijau yang ada pada Kota Bandung.
+%Pada skripsi ini, akan dibuat sebuah perangkat lunak yang dapat menampilkan visualisasi dan simulasi kerumunan orang yang berkunjung ke sebuah museum. Dengan menggunakan perangkat lunak tersebut, pengelola museum dapat mengatur tempat peletakan objek sehingga tidak terjadi kerumunan yang terlalu padat.
 
-Pada skripsi ini, akan dibuat sebuah perangkat lunak yang dapat menampilkan visualisasi dan simulasi kerumunan orang yang berkunjung ke sebuah museum. Dengan menggunakan perangkat lunak tersebut, pengelola museum dapat mengatur tempat peletakan objek sehingga tidak terjadi kerumunan yang terlalu padat.
+%Dari berbagai macam teknik yang dapat digunakan untuk melakukan simulasi kerumunan, dipilih dua buah teknik yaitu teknik {\it flow tiles} dan {\it social force model (steering behaviour)}.
 
-Dari berbagai macam teknik yang dapat digunakan untuk melakukan simulasi kerumunan, dipilih dua buah teknik yaitu teknik {\it flow tiles} dan {\it social force model (steering behaviour)}.
+%Dst, dst, dst, \ldots\ldots\ldots 
 
-Dst, dst, dst, \ldots\ldots\ldots 
+%Perangkat lunak akan dibuat dengan bantuan {\it framework} OpenSteer. Sebagai studi kasus, museum yang digunakan untuk melakukan simulasi adalah Museum Geologi Bandung.
 
-Perangkat lunak akan dibuat dengan bantuan {\it framework} OpenSteer. Sebagai studi kasus, museum yang digunakan untuk melakukan simulasi adalah Museum Geologi Bandung.
-
-Dst, dst, dst, \ldots\ldots\ldots 
+%Dst, dst, dst, \ldots\ldots\ldots 
 
 \section{Rumusan Masalah}
-Tuliskan rumusan dari masalah yang akan anda bahas pada skripsi ini. Rumusan masalah biasanya berupa kalimat pertanyaan. Gunakan itemize seperti contoh di bagian Deskripsi Perangkat Lunak.
+%Tuliskan rumusan dari masalah yang akan anda bahas pada skripsi ini. Rumusan masalah biasanya berupa kalimat pertanyaan. Gunakan itemize seperti contoh di bagian Deskripsi Perangkat Lunak.
+Rumusan masalah yang muncul berdasarkan deskripsi yang sudah dibahas
+adalah sebagai berikut:
+\begin{itemize}
+	\item Bagaimana membuat sebuah laman web interaktif yang dapat membandingkan dua buah kelurahan atau kecamatan Kota Bandung?
+	\item Bagaimana cara pengguna untuk membandingkan atribut-atribut dari kelurahan atau kecamatan Kota Bandung?
+\end{itemize}
 
 \section{Tujuan}
-Tuliskan tujuan dari topik skripsi yang anda ajukan. Tujuan penelitian biasanya berkaitan erat dengan pertanyaan yang diajukan di bagian rumusan masalah. Gunakan itemize seperti contoh di bagian Deskripsi Perangkat Lunak.
+%Tuliskan tujuan dari topik skripsi yang anda ajukan. Tujuan penelitian biasanya berkaitan erat dengan pertanyaan yang diajukan di bagian rumusan masalah. Gunakan itemize seperti contoh di bagian Deskripsi Perangkat Lunak.
+Tujuan dari penelitian ini adalah sebagai berikut :
+\begin{itemize}
+	\item Membuat sebuah laman web interaktif yang dapat membandingkan dua buah kelurahan.
+	\item Pengguna dapat memilih kecamatan / kelurahan untuk sisi kiri dan kanan, untuk membandingkan atributnya.
+\end{itemize}
 
 \section{Deskripsi Perangkat Lunak}
-Tuliskan deksripsi dari perangkat lunak yang akan anda hasilkan. Apa saja fitur yang disediakan oleh PL tersebut dan apa saja kemampuan dari PL tersebut. Perhatikan contoh di bawah ini:
+%Tuliskan deksripsi dari perangkat lunak yang akan anda hasilkan. Apa saja fitur yang disediakan oleh PL tersebut dan apa saja kemampuan dari PL tersebut. Perhatikan contoh di bawah ini:
+Laman web akan memvisualisasikan hasil dari area hijau Kota Bandung. Fitur-fitur dari laman web akan memudahkan pengguna untuk melihat area hijau dari Kota Bandung berdasarkan kelurahan atau kecamatan.Setiap kelurahan atau kecamatan akan memiliki atribut-atribut sendiri.
 
-Perangkat lunak akhir yang akan dibuat memiliki fitur minimal sebagai berikut:
+Laman Web akhir yang akan dibuat memiliki fitur minimal sebagai berikut:
 \begin{itemize}
-	\item Pengguna dapat melihat denah Musem Geologi Bandung dalam bidang dua dimensi. Sedangkan pengunjung direpresentasikan menggunakan lingkaran-lingkaran kecil (tidak menggunakan gambar manusia yang diambil dari atas)
-	\item Pengguna dapat memunculkan atau menghilangkan gambar {\it flow tiles} pada denah museum. 
-	\item Pengguna dapat mengatur jalannya simulasi: memulai(start) simulasi, menunda(pause) simulasi, melanjutkan(continue) simulasi, maupun menghentikan(stop) simulasi
-	\item Pengguna dapat mengatur banyaknya pengunjung di dalam museum, baik melalui perubahan frekuensi kedatangan pengunjung maupun menambahkan dan menghapus pengunjung satu-persatu secara manual.
-	\item Posisi kamera dapat diubah (pergerakan di bidang tiga dimensi) sehingga pengguna dapat melihat simulasi di museum dari berbagai arah. 
-	\item Posisi kamera dapat diubah untuk emngikuti perjalanan seorang pengunjung di dalam 
-	\item Pengguna dapat memilih apakah akan menggunakan teknik {\it flow tiles} atau tidak pada saat simulasi berlangsung
-	\item Jenis {\it flow tiles} yang digunakan dapat diubah-ubah pada saat simulasi sedang berlangsung
+	\item Pengguna dapat memilih kecamatan atau kelurahan yang ingin dilihat.
+	\item Pengguna dapat melihat Luas Wilayah dari kecamatan atau kelurahan yang dipilih.
+	\item Pengguna dapat melihat Luas Area Hijau dari kecamatan atau kelurahan yang dipilih.
+	\item Pengguna dapat melihat Kebutuhan Area Hijau dari kecamatan atau kelurahan yang dipilih.
+	\item Pengguna dapat melihat gambaran Citra satelit dari kecamatan atau kelurahan yang dipilih.
+	\item Pengguna dapat mengakses ke laman \emph{Google Maps} untuk kecamatan atau kelurahan yang dipilih.
+	\item Pengguna dapat gambar luas area hijau dari kecamatan atau kelurahan yang dipilih.
 		
 \end{itemize}
 
