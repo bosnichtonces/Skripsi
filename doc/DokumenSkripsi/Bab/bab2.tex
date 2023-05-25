@@ -118,6 +118,62 @@ Bahasa pemrograman \textit{Python} Merupakan sebuah bahasa pemograman komputer y
 \textit{Python Imaging Library} merupakan salah satu \textit{library} yang terdapat pada bahasa pemrograman \textit{Python}.PIL dapat menambahkan pemrosesan gambar ke bahasa pemrograman \textit{Python}.\textit{Library} ini menyediakan \textit{extensive file format}, representasi internal yang efisien, dan memiliki kemampuan yang baik dalam pemrosesan gambar. Pentingnya \textit{library} yang dirancang untuk dapat mengakses data yang disimpan dengan cepat dalam berbagai format piksel. Seharusnya memberikan dasar yang kuat sebagai alat pengolahan gambar
 %cite dari website pillow fork doc
 
+\textit{Python Imaging Library} sangat ideal untuk pengarsipan gambar dan aplikasi pemrosesan \textit{batch}. Penggunakan \textit{library }untuk membuat thumbnail, mengonversi antara format file, mencetak gambar, dll. Versi saat ini dapat mengidentifikasi dan membaca sejumlah besar format. Pembantuan dalam penulisan ini sengaja dibatasi dalam format pertukaran dan representasi yang paling umum digunakan.
+
+\textit{Python Imaging Library} yang rilis saat ini mencakup antarmuka Tk \textit{PhotoImage} dan \textit{BitmapImage}, serta \textit{Windows DIB interface} yang dapat digunakan dengan \textit{PythonWin} dan berbagai mnacam \textit{toolkits} yang berbasis Windows. Banyak \textit{toolkits} GUI(\textit{Grapical User Interface}) lainnya yang dilengkapi dengan dukungan PIL. Untuk \textit{debugging}, ada juga metode \textit{show()} yang menyimpan gambar ke disk, dan memanggil utilitas tampilan eksternal.
+
+\subsubsection{Penggunaan kelas\textit{Image}}
+Dalam penggunaan \textit{Python Imaging Library} terdapat kelas yang paling penting yaitu kelas \textit{Image}, yang didefinisikan dalam modul dengan nama yang sama. Pembuat \textit{instance} dari kelas ini dengan beberapa cara; Baik dengan memuat gambar dari file, memproses gambar lain, atau membuat gambar dari awal. Memuat gambar dari file. 
+
+\begin{enumerate}
+	\item Penggunaan fungsi \textit{Image.open()}\\
+	Berfungsi untuk membuka dan mengidentifikasi file gambar yang diberikan. Fungsi ini mengidentifikasi sebuah file, tetapi file tetap terbuka dan data gambar tidak terbaca sampai data file gambar tersebut diproses. Memiliki parameter \textbf{fp} merupakan nama file yang akan dibuka, \textbf{mode} memiliki argumen "r", dan \textit{\textbf{formats}} sebuah daftar format untuk memcoba memuat file. Parameter ini dapat digunakan untuk membatas format yang akan diperiksa. Dalam penggunaan fungsi dapat dilihat pada gambar \ref{fig:openimage}.
+	\begin{figure}[H]
+		\centering
+		%	\captionsetup{width=.9\linewidth}
+		\includegraphics[width=0.8\textwidth]{Gambar/imageclass.png}
+		\caption{Pemanggilan fungsi \textit{open()}}
+		\label{fig:openimage}
+	\end{figure}
+	Jika pemanggilan fungsi berhasil, fungsi yang dipanggil akan mengembalikan sebuah objek \textit{Image}
+	\item Penggunaan fungsi \textit{Image.new()}\\
+	Berfungsi untuk membuat gambar baru dengan mede dan ukuran yang diberikan. Memiliki parameter \textbf{mode} untuk menentukan jenis dan kedalaman piksel dalam gambar seperti mode "L"(8-bit piksel,skala abu-abu), "RGB" (3x8-bit piksel,warna asli), "RBGA" (4x8-bit piksel, warna asli dengan \textit{transparacy mask}), dll. Parameter \textit{\textbf{size}} merupakan ukuran dari gambar baru, berisi ukuran horizontal dan vertikal dalam piksel. Parameter \textit{\textbf{color}} memberikan warna apa yang akan digunakan. Biasanya akan lansung diberikan warna hitam.
+	\begin{figure}[H]
+		\centering
+		%	\captionsetup{width=.9\linewidth}
+		\includegraphics[width=0.8\textwidth]{Gambar/imagenew.png}
+		\caption{Pemanggilan fungsi \textit{Image.new()}}
+		\label{fig:imagenew}
+	\end{figure}
+	Jika pemanggilan fungsi pada gambar \ref{fig:imagenew} berhasil, maka akan mengembalikan sebuah objek \textit{image}.
+	\item Penggunaan fungsi \textit{Image.paste()}\\
+	Berfungsi untuk menempelkan sebuah objek gambar ke objek gambar lain. Ukuran gambar yang ditempelkan harus sesuai dengan ukuran gambar. Memiliki parameter \textbf{im} yang merupakan sebuah objek image atau nilai piksel. Parameter \textit{\textbf{box}} 4-tupel opsional yang memberikan wilayah untuk ditempelkan. Jika 2-tupel digunakan sebagai gantinya, itu diperlakukan sebagai sudut kiri atas. Jika dihilangkan atau tidak ada, objek gambar yang ditempelkan ke sudut kiri atas. Parameter \textit{\textbf{mask}} merupakan sebuah optional \textit{mask} gambar.
+	\begin{figure}[H]
+		\centering
+		%	\captionsetup{width=.9\linewidth}
+		\includegraphics[width=0.8\textwidth]{Gambar/imagepaste.png}
+		\caption{Pemanggilan fungsi \textit{Image.paste()}}
+		\label{fig:imagepaste}
+	\end{figure}
+	Jika fungsi pemanggilan pada gambar \ref{fig:imagepaste} berhasil, akan mengembalikan sebuah objek \textit{Image} yang memuat gambar im1 yang ditempelkan pada gambar baru im.
+	\item Penggunaan fungsi \textit{Image.save()}\\
+\end{enumerate}
+
+
+%\subsubsection{\textit{Reading and writing images}}
+%\textit{Python Imaging Library} mendukung berbagai format file gambar. Pembacaan file dari disk,dapat digunakan fungsi \textit{open()} pada modul \textit{Image}. Juga tidak perlu mengetahui format file untuk membuka file. \textit{Library} secara otomatis menentukan format berdasarkan konten file. Penggunaan metode \textit{save()} (Gambar \ref{fig:saveimage}) dari kelas \textit{Image} untuk menyimpan file. Penamaan file sangat penting saat ingin melakukan pemyimpanan. Kecuali format pada penyimpanan telah ditentukan, \textit{library} dapat menggunakan ekstensi \textit{filename} dalam menemukan format penyimpanan file mana yang akan digunakan.
+%\begin{figure}[H]
+%	\centering
+%	%	\captionsetup{width=.9\linewidth}
+%	\includegraphics[width=0.8\textwidth]{Gambar/functionsave.png}
+%	\caption{Mengkonversikan File kedalam bentuk JPEG}
+%	\label{fig:saveimage}
+%\end{figure}
+
+%\subsubsection{\textit{Pasting and merging images}}
+%Metode \textit{paste} merupakan metode yang paling populer dan nyaman untuk menempelkan gambar pada gambar lain. Penggunaan \textit{paste} diterapkan ke gambar yang ada dan argumen pertamanya adalah gambar yang ditempelkan.
+%Argumen kedua adalah sebuah kotak. Kotak ini bisa berupa tupel 2 elemen atau 4 elemen. Jika Anda menggunakan 2 elemen, itu akan menentukan di mana sudut kiri atas gambar yang ditempel dimulai. Jika Anda menggunakan 4 elemen maka Anda akan mendefinisikan semua 4 sudut gambar yang ditempelkan relatif terhadap gambar dasar.
+
 \section{\textit{Base64}}
 \label{sec:base64}
 
