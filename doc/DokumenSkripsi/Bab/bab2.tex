@@ -60,17 +60,18 @@ Semua perintah HDFS dipanggil menggunakan \textit{script} \textit{bin/hdfs}. Pen
 \end{figure}
 Gambar \ref{fig:hdfs} merupakan pemanggilan perintah pada HDFS. Setiap opsi perintah memiliki fungsi untuk menajalankan \textit{script} pada CLI. Penjelasan tiap opsi dijelaskan pada tabel \ref{table:command_options}.  
 
-\begin{table}[h]
+\begin{table}[H]
 	\caption{\label{table:command_options}\textit{Hadoop} memiliki opsi \textit{parsing framework} yang menjelaskan setiap fungsi kelasnya }
-	\begin{tabular}{|l|l|}
-		\hline
-		\textbf{COMMAND\_OPTION} & \textbf{Deskripsi}                                            \\ \hline
-		SHELL\_OPTIONS           & kumpulan shell\_option  yang umum                             \\ \hline
-		GENERIC\_OPTIONS         & kumpulan generic\_option yang didukung oleh beberapa perintah \\ \hline
-		COMMAND COMMAND\_OPTIONS & Bermacam perintah dengan opsi                                 \\ \hline
-	\end{tabular}
+	\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{COMMAND\_OPTION} & \textbf{Deskripsi}                                            \\ \hline
+			SHELL\_OPTIONS           & kumpulan shell\_option  yang umum                             \\ \hline
+			GENERIC\_OPTIONS         & kumpulan generic\_option yang didukung oleh beberapa perintah \\ \hline
+			COMMAND COMMAND\_OPTIONS & Bermacam perintah dengan opsi                                 \\ \hline
+		\end{tabular}%
+	}
 \end{table}
-\newpage
 
 Penggunaan perintah HDFS yang digunakan antara lain :
 \begin{enumerate}
