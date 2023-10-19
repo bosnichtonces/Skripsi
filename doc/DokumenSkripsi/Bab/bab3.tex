@@ -13,8 +13,7 @@ Pada Gambar \ref{fig:ciumbuleuit} merupakan hasil dari penggabungan gambar per \
 \end{figure} 
 
 Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Laboratoium Unpar. Kemudian data yang telah diambil berupa file ".txt" yang setiap baris dari file tersebut merupakan sebuah file gambar berupa \textit{tile} seperti pada gambar(\ref{fig:tileCiumbuleuit}). Kumpulan gambar per \textit{tile} akan digabungkan dengan menggunakan \textit{script}. Penggabungan gambar setiap \textit{tile} akan menghasilkan sebuah gambar dari kecamatan/kelurahan seperti pada gambar \ref{fig:ciumbuleuit}.
-
-\begin{figure}[htp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{Ciumbuleuit21.png}
 	\includegraphics[scale=0.4]{Ciumbuleuit22.png}
@@ -24,10 +23,96 @@ Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Labo
 \end{figure}
 
 \subsection{Mengunduh File Text}
+Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada Hadoop
+HDFS.\cite{juan:22:pengumpulan} Pada proses pengunduhan data harus terlebih dahulu mendaftarkan akun HDFS pada admin laboratoium FTIS UNPAR(Universitas Katholik Parahyangan) agar mendapat akses kedalam sistem penyimpanan HDFS(\textit{Hadoop Distributed File System}). Setelah mendapatkan aksesnya, lalu dapat mengunduh data citra satelit kelurahan per kota dengan perintah seperti pada kode \ref{code:cmdhdfs}. 
 
+\begin{lstlisting}[language=Bash, caption=\textit{Command-line} HDFS,label={code:cmdhdfs}]
+	>hdfs dfs -get /user/if18059/geodata/cropped/arcgis/16/Jawa_Barat/Kota_Bandung.txt .	
+\end{lstlisting}
+
+
+Metode yang umum digunakan untuk mengunduh file dari server jarak jauh secara aman adalah dengan menggunakan SCP (\textit{Secure Copy Protocol}). SCP adalah perintah baris perintah yang memungkinkan pengguna untuk mentransfer file antara komputer lokal dan server jarak jauh melalui koneksi yang aman. Dalam pengunduhan file dari server dapat menggunakan perintah 'scp' diikuti oleh alamat sumber file di server dan alamat tujuan pada penyimpanan lokal. Dapat dilihat pada \textit{command-line} \ref{code:cmdscp}, akan mengunduh file 'Kota\_Bandung.txt' dari server HDFS laboratorium FTIS UNPAR ke lokasi yang ditentukan pada penyimpanan lokal. Dengan demikian, File yang telah diunduh dapat dengan mudah digunakan.
+
+\begin{lstlisting}[language=Bash, caption=\textit{Command-line} SCP,label={code:cmdscp}]
+	C:\Users\Asus>scp ssh i17086@10.100.69.101:Kota_Bandung.txt	
+\end{lstlisting}
+
+Data Kota\_Bandung.txt dapat dilihat pada gambar \ref{fig:kotabandungteks}. Isi dari berkas Kota\_Bandung.txt memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan nama kota. Pada kolom ketiga diisi dengan nama provinsi. Kolom keempat diisi dengan nilai panjang tile untuk kelurahan tersebut. Kolom kelima diisi dengan nilai lebar dari tile untuk kelurahan tersebut. Kolom keenam diisi dengan posisi x koordinat tile untuk kelurahan tersebut. Kolom ketujuh diisi dengan posisi y koordinat tile untuk kelurahan tersebut. Kolom kedelapan diisi dengan ukuran luas per piksel dalam km2 untuk tile pada kelurahan tersebut. Terakhir kolom kesembilan diisi dengan data
+tile citra satelit dengan format png yang sudah dienkripsi dalam bentuk Base64.\cite{juan:22:pengumpulan}
+ 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Gambar/data kota\_bandung.png}
+	\caption{Data Citra Satelit berupa .txt}
+	\label{fig:kotabandungteks}
+\end{figure} 
 
 \subsection{Mengkonversi Baris Menjadi Gambar .png}
+Dalam penelitian ini, telah dikembangkan sebuah \textit{script} yang bertujuan untuk mengekstraksi gambar pertile dari data Kota\_Bandung.txt. Script yang telah dikembangkan dapat dilihat kode program \ref{code:ekstraksiGambar}.
+
+\begin{lstlisting}[language=Python, caption=Script Mengekstrasi gambar per tile,label={code:ekstraksiGambar}]
+	import base64
+	
+	file = open("Kota_Bandung.txt","r+")
+	kordinat_x = 0
+	kordinat_y = 0
+	result = []
+	
+	for line in file:
+		file_line = file.readline().split(";",8)   
+		image_data = file_line[8]
+		kordinat_x = file_line[5]
+		kordinat_y = file_line[6]
+		
+		
+		imgdata = base64.b64decode(image_data)
+		filename = file_line[0] + str(kordinat_x) + str(kordinat_y)+ '.png'
+		with open(filename,'wb') as imgd:
+		imgd.write(imgdata)
+	
+	file.close()
+		
+\end{lstlisting}
+
+\textit{Script }ini menggunakan \textit{library} base64 untuk mengelola data gambar yang disimpan dalam format base64. Pertama, \textit{script} membuka file Kota\_Bandung.txt dalam mode pembacaan ('r+'). Variabel kordinat\_x dan kordinat\_y diinisialisasi ke nilai 0. Selama iterasi berlangsung, data dari file dibaca per baris menggunakan perulangan \textit{for line in file}. Setiap baris diproses dengan membaginya menjadi elemen-elemen dengan pemisah titik koma (';'). Data gambar yang terdapat di kolom ke-8 di-\textit{decode} dari format base64 menggunakan base64.b64decode dan disimpan dalam variabel imgdata. Selanjutnya, nama file gambar ditentukan dengan menggabungkan beberapa elemen, seperti nama kecamatan atau kelurahan, kordinat\_x, dan kordinat\_y, dan diberi ekstensi '.png'.
+
+Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam file baru dengan nama yang telah ditentukan dalam mode binary ('wb') menggunakan \textit{open} dan imgd.write. Terakhir, setelah selesai mengolah semua baris, file sumber Kota\_Bandung.txt ditutup menggunakan \textit{file.close()}. Dengan \textit{script} code ini, data gambar dalam format base64 di-\textit{extract} dan disimpan sebagai file gambar .png dengan nama yang koordinat\_x dan koordinat\_y. Hasil dari penkonversian gambar dari bari dapat dilihat pada \ref{fig:pertileciumbuleuit}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Gambar/result gambar per tile.png}
+	\caption{Gambar seluruh tile dari kelurahan Ciumbuleuit}
+	\label{fig:pertileciumbuleuit}
+\end{figure} 
+
 \subsection{Menggabungkan Gambar}
+\textit{Script} yang dikembangkan dalam penelitian ini memiliki tujuan utama untuk menggabungkan sejumlah gambar per tile menjadi sebuah gambar utuh yang merepresentasikan kelurahan atau kecamatan. Kode pemrograman dapat dilihat pada kode program \ref{code:penggabunganGambar}, menggunakan library PIL (\textit{Python Imaging Library}) dengan mengimpor kelas \textit{Image}. Terdapat beberapa variabel kunci yang ditentukan, seperti nama\_kecamatan, jumlah\_baris, dan jumlah\_kolom, yang digunakan untuk mengidentifikasi nama kecamatan atau kelurahan serta jumlah baris dan kolom yang digunakan untuk mengatur tata letak gambar per tile.
+
+\begin{lstlisting}[language=Python, caption=Script Penggabungan Gambar,label={code:penggabunganGambar}]
+	from PIL import Image
+	
+	nama_kecematan = 'nama_kecamatan/kelurahan'
+	jumlah_baris = 2
+	jumlah_kolom = 3
+	
+	panjang_tile = 256
+	lebar_tile = 256
+	
+	panjang_gambar = jumlah_kolom*panjang_tile
+	lebar_gambar = jumlah_baris*lebar_tile
+	
+	canvas = Image.new("RGB", (panjang_gambar,lebar_gambar))
+	for y in range(jumlah_baris):
+	for x in range(jumlah_kolom):
+	img = Image.open(nama_kecematan + str(y) + str(x) +".png")
+	canvas.paste(img, (x*panjang_tile,y*lebar_tile))
+	canvas.save(nama_kecematan + ".png")
+	
+\end{lstlisting}
+
+Selanjutnya, variabel panjang\_tile dan lebar\_tile menentukan ukuran tile, yang dalam contoh ini adalah 256 piksel. Variabel panjang\_gambar dan lebar\_gambar dihitung berdasarkan jumlah kolom dan baris, sehingga ukuran gambar akhir dapat ditentukan. Proses pembuatan gambar  dimulai dengan inisiasi variabel canvas menggunakan fungsi \textit{Image.new }dengan mode "RGB" dan ukuran gambar sesuai dengan panjang\_gambar dan lebar\_gambar. Selanjutnya, terdapat dua \textit{loop} di mana \textit{loop} pertama digunakan untuk mengatur koordinat y, dan loop kedua untuk koordinat x. Di dalam \textit{loop-loop} tersebut, variabel img digunakan untuk membuka gambar tile yang sesuai dengan koordinatnya dengan menambahkan format file yang sesuai. Gambar yang diakses melalui variabel img kemudian disisipkan ke dalam gambar utuh \textit{canvas} menggunakan fungsi \textit{paste}. Dan terakhir, \textit{canvas.save} untuk menyimpan hasil gambar akhir dengan nama sesuai dengan 'nama\_kecamatan'. Hasil akhir gambar-gambar per tile menjadi gambar utuh yang merepresentasikan wilayah atau kecamatan yang diinginkan seperti pada gambar \ref{fig:ciumbuleuit}.
+
 
 \section{Analisis Perangkat Lunak}
 Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seorang pengguna untuk menjalankan sebuah perangkat lunak yang akan dikembankan. Sehingga segala proses sistem dijalankan oleh aktor yang terlibat. Dalam sistem ini hanya memiliki aktor sebagai \textit{user}. Seorang pemangku kepentingan atau pembuat keputusan memegang peranan sebagai \textit{user} itu sendiri. Dalam menggambarkan peranan pengguna terhadap interaksinya dengan sistem, maka dapat dilihat pada diagram \textit{use case} yang terdapat pada Gambar~\ref{fig:useCaseUser} berikut.

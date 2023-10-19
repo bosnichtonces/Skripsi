@@ -30,14 +30,11 @@ Perintah \textit{Command-line interface} yang digunakan antaralain :
 \subsection{SCP(\textit{Secure Copy Protocol})}
 Salah satu perintah yang terdapat pada \textit{Command-line interface} yaitu SCP(\textit{secure copy}). SCP memiliki fungsi yang mirip seperti pada perintah \emph{cp}(\textit{copy}) yaitu untuk menyalin berkas\cite{william:19:linux}. Perbedaannya yang paling terlihat terletak pada sumber atau tujuan ke \textit{remote host}. Sebagai contoh, jika ingin menyalin sebuah dokumen dari \textit{local directory}(berkas dalam komputer) ke \textit{remote system}, atau dari \textit{working directory} ke \textit{local directory}. 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Gambar/scp.png}
-	\caption{Pemanggilan SCP}
-	\label{fig:scp}
-\end{figure}
+\begin{lstlisting}[language=Bash, caption=Pemanggilan SCP,label={code:callscp}]
+	C:\Users\Asus>scp ssh i17086@10.100.69.101:Kota_Bandung.txt	
+\end{lstlisting}
 
-Gambar \ref{fig:scp} merupakan contoh penyalinan berkas Kota\textunderscore Bandung.txt. Berkas tersebut yang tersimpan didalam \textit{remote host} dan disalin ke \textit{local directory} pengguna.
+Kode program \ref{code:callscp} merupakan contoh penyalinan berkas Kota\textunderscore Bandung.txt. Berkas tersebut yang tersimpan didalam \textit{remote host} dan disalin ke \textit{local directory} pengguna.
 
 
 \section{Hadoop Distributed File System}
@@ -50,13 +47,10 @@ HDFS memungkinkan para pengguna untuk menyimpan data kedalam file yang dibagi me
 HDFS memiliki 2 jenis \textit{node}, yaitu \textit{namenode} sebagai \textit{node master} dan \textit{datanode} sebagai \textit{node slave}. Kelebihan utama yang ditawarkan HDFS adalah \textit{scalability} dan \textit{availability} yang dicapai dikarenakan memiliki kemampuan replikasi data dan \textit{fault tolerance}.Dengan adanya kemampuan replikasi data/file, ketika ada kegagalan \textit{software }atau \textit{hardware}, HDFS akan melakukan replikasi ulang blok-blok data pada \textit{node} yang mengalami kegagalan.\cite{alex:14:hadoop}
 
 Semua perintah HDFS dipanggil menggunakan \textit{script} \textit{bin/hdfs}. Penjalanan \textit{script} \textbf{"hdfs"} tanpa argumen akan mencetak deskripsi untuk semua perintah.\footnote{https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Gambar/hdfs2.png}
-	\caption{Perintah HDFS CLI}
-	\label{fig:hdfs}
-\end{figure}
-Gambar \ref{fig:hdfs} merupakan pemanggilan perintah pada HDFS. Setiap opsi perintah memiliki fungsi untuk menajalankan \textit{script} pada CLI. Penjelasan tiap opsi dijelaskan pada tabel \ref{table:command_options}.  
+\begin{lstlisting}[language=Bash, caption=Perintah HDFS CLI,label={code:hdfscli}]
+	C:\Users\Asus>hdfs [SHELL_OPTION] COMMAND [GENERIC_OPTIONS] [COMMAND_OPTIONS]
+\end{lstlisting}
+Kode program \ref{code:hdfscli} merupakan pemanggilan perintah pada HDFS. Setiap opsi perintah memiliki fungsi untuk menajalankan \textit{script} pada CLI. Penjelasan tiap opsi dijelaskan pada tabel \ref{table:command_options}.  
 
 \begin{table}[ht]
 	\caption{Hadoop memiliki opsi parsing framework yang menjelaskan setiap fungsi kelasnya}
@@ -76,32 +70,22 @@ Gambar \ref{fig:hdfs} merupakan pemanggilan perintah pada HDFS. Setiap opsi peri
 Penggunaan perintah HDFS yang digunakan antara lain :
 \begin{enumerate}
 	\item Penggunaan perintah \textbf{dfs}\\
-	Perintah \textbf{dfs} digunakan untuk menjalankan(\textit{run}) perintah \textit{filesystem} yang didukung oleh \textit{Hadoop}. \textit{\textbf{[COMMAND\_OPTIONS]}} dapat dilihat pada \href{https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/FileSystemShell.html}{\textit{File System Guide}}. Contoh pemanggilan \textbf{dfs} seperti pemanggilan pada Gambar \ref{fig:dfs}
-	\begin{figure}[H]
-		\centering
-		%	\captionsetup{width=.9\linewidth}
-		\includegraphics[width=0.8\textwidth]{Gambar/dfs.png}
-		\caption{Perintah HDFS dfs}
-		\label{fig:dfs}
-	\end{figure}
+	Perintah \textbf{dfs} digunakan untuk menjalankan(\textit{run}) perintah \textit{filesystem} yang didukung oleh \textit{Hadoop}. \textit{\textbf{[COMMAND\_OPTIONS]}} dapat dilihat pada \href{https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/FileSystemShell.html}{\textit{File System Guide}}. Contoh pemanggilan \textbf{dfs} seperti pemanggilan pada Gambar \ref{code:dfs}
+	
+	\begin{lstlisting}[language=Bash, caption=Perintah HDFS dfs,label={code:dfs}]
+		C:\Users\Asus>hdfs dfs [COMMAND [COMAND_OPTIONS]]
+	\end{lstlisting}
+	
 	\item Penggunaan perintah \textbf{get}\\
-	Perintah \textbf{get} digunakan untuk menyalin file HDFS ke \textit{local system}.Gambar \ref{fig:get} merupakan contoh yang menunjukkan cara penggunaan perintah \textbf{-get} untuk mengunduh file dari HDFS ke \textit{local file system}
-	\begin{figure}[H]
-		\centering
-		%	\captionsetup{width=.9\linewidth}
-		\includegraphics[width=0.8\textwidth]{Gambar/get.png}
-		\caption{Perintah HDFS dfs -get untuk mengunduh file HDFS Kota\_Bandung.txt ke \textit{local system}}
-		\label{fig:get}
-	\end{figure}
+	Perintah \textbf{get} digunakan untuk menyalin file HDFS ke \textit{local system}.Gambar \ref{code:get} merupakan contoh yang menunjukkan cara penggunaan perintah \textbf{-get} untuk mengunduh file dari HDFS ke \textit{local file system}
+	\begin{lstlisting}[language=Bash, caption=Perintah HDFS dfs -get untuk mengunduh file HDFS Kota\_Bandung.txt ke \textit{local system},label={code:get}]
+		C:\Users\Asus>hdfs dfs -get /user/if18059/geodata/cropped/arcgis/16/Jawa_Barat/Kota_Bandung.txt .
+	\end{lstlisting}
 	\item Penggunaan perintah \textbf{-ls}\\
 	Perintah \textbf{-ls} digunakan untuk menampilkan daftar isi \textit{directory} yang ditentukan oleh \textit{path} yang disediakan oleh pengguna. Gambar merupakan contoh yang menunjukkan cara penggunaan perintah \textbf{-ls} untuk melihat isi file HDFS.
-	\begin{figure}[H]
-		\centering
-		%	\captionsetup{width=0.9\textwidth}
-		\includegraphics[width=0.8\textwidth]{Gambar/ls.png}
-		\caption{Perintah HDFS dfs -ls untuk menampilkan isi file yang berada didalam \textit{directory} Jawa\_Barat}
-		\label{fig:ls}
-	\end{figure}
+	\begin{lstlisting}[language=Bash, caption=Perintah HDFS dfs -get untuk mengunduh file HDFS Kota\_Bandung.txt ke \textit{local system},label={code:ls}]
+		C:\Users\Asus>hdfs dfs -ls /user/if18059/geodata/cropped/arcgis/16/Jawa_Barat
+	\end{lstlisting}
 \end{enumerate}
 
 
@@ -128,35 +112,32 @@ Dalam penggunaan \textit{Python Imaging Library} terdapat kelas yang paling pent
 
 \begin{enumerate}
 	\item Penggunaan fungsi \textit{Image.open()}\\
-	Berfungsi untuk membuka dan mengidentifikasi file gambar yang diberikan. Fungsi ini mengidentifikasi sebuah file, tetapi file tetap terbuka dan data gambar tidak terbaca sampai data file gambar tersebut diproses. Memiliki parameter \textbf{fp} merupakan nama file yang akan dibuka, \textbf{mode} memiliki argumen "r", dan \textit{\textbf{formats}} sebuah daftar format untuk memcoba memuat file. Parameter ini dapat digunakan untuk membatas format yang akan diperiksa. Dalam penggunaan fungsi dapat dilihat pada gambar \ref{fig:openimage}.
-	\begin{figure}[H]
-		\centering
-		%	\captionsetup{width=.9\linewidth}
-		\includegraphics[width=0.8\textwidth]{Gambar/imageclass.png}
-		\caption{Pemanggilan fungsi \textit{open()}}
-		\label{fig:openimage}
-	\end{figure}
+	Berfungsi untuk membuka dan mengidentifikasi file gambar yang diberikan. Fungsi ini mengidentifikasi sebuah file, tetapi file tetap terbuka dan data gambar tidak terbaca sampai data file gambar tersebut diproses. Memiliki parameter \textbf{fp} merupakan nama file yang akan dibuka, \textbf{mode} memiliki argumen "r", dan \textit{\textbf{formats}} sebuah daftar format untuk memcoba memuat file. Parameter ini dapat digunakan untuk membatas format yang akan diperiksa. Dalam penggunaan fungsi dapat dilihat pada kode program \ref{code:openimage}.
+	\begin{lstlisting}[language=Python, caption=Pemanggilan fungsi \textit{open()},label={code:openimage}]
+		from PIL import Image
+		
+		im = image.open("hopper.ppm")
+	\end{lstlisting}
 	Jika pemanggilan fungsi berhasil, fungsi yang dipanggil akan mengembalikan sebuah objek \textit{Image}
 	\item Penggunaan fungsi \textit{Image.new()}\\
 	Berfungsi untuk membuat gambar baru dengan mede dan ukuran yang diberikan. Memiliki parameter \textbf{mode} untuk menentukan jenis dan kedalaman piksel dalam gambar seperti mode "L"(8-bit piksel,skala abu-abu), "RGB" (3x8-bit piksel,warna asli), "RBGA" (4x8-bit piksel, warna asli dengan \textit{transparacy mask}), dll. Parameter \textit{\textbf{size}} merupakan ukuran dari gambar baru, berisi ukuran horizontal dan vertikal dalam piksel. Parameter \textit{\textbf{color}} memberikan warna apa yang akan digunakan. Biasanya akan lansung diberikan warna hitam.
-	\begin{figure}[H]
-		\centering
-		%	\captionsetup{width=.9\linewidth}
-		\includegraphics[width=0.8\textwidth]{Gambar/imagenew.png}
-		\caption{Pemanggilan fungsi \textit{Image.new()}}
-		\label{fig:imagenew}
-	\end{figure}
-	Jika pemanggilan fungsi pada gambar \ref{fig:imagenew} berhasil, maka akan mengembalikan sebuah objek \textit{image}.
+	\begin{lstlisting}[language=Python, caption=Pemanggilan fungsi \textit{new()},label={code:imagenew}]
+		from PIL import Image
+		
+		im = image.new("hopper.ppm")
+	\end{lstlisting}
+	Jika pemanggilan fungsi pada gambar \ref{code:imagenew} berhasil, maka akan mengembalikan sebuah objek \textit{image}.
 	\item Penggunaan fungsi \textit{Image.paste()}\\
 	Berfungsi untuk menempelkan sebuah objek gambar ke objek gambar lain. Ukuran gambar yang ditempelkan harus sesuai dengan ukuran gambar. Memiliki parameter \textbf{im} yang merupakan sebuah objek image atau nilai piksel. Parameter \textit{\textbf{box}} 4-tupel opsional yang memberikan wilayah untuk ditempelkan. Jika 2-tupel digunakan sebagai gantinya, itu diperlakukan sebagai sudut kiri atas. Jika dihilangkan atau tidak ada, objek gambar yang ditempelkan ke sudut kiri atas. Parameter \textit{\textbf{mask}} merupakan sebuah optional \textit{mask} gambar.
-	\begin{figure}[H]
-		\centering
-		%	\captionsetup{width=.9\linewidth}
-		\includegraphics[width=0.8\textwidth]{Gambar/imagepaste.png}
-		\caption{Pemanggilan fungsi \textit{Image.paste()}}
-		\label{fig:imagepaste}
-	\end{figure}
-	Jika fungsi pemanggilan pada gambar \ref{fig:imagepaste} berhasil, akan mengembalikan sebuah objek \textit{Image} yang memuat gambar im1 yang ditempelkan pada gambar baru im.
+	\begin{lstlisting}[language=Python, caption=Pemanggilan fungsi \textit{paste()},label={code:imagepaste}]
+		from PIL import Image
+		
+		im = image.new("hopper.ppm")
+		im1 = image.open()
+		
+		im.paste(im1,(256,256))
+	\end{lstlisting}
+	Jika fungsi pemanggilan pada gambar \ref{code:imagepaste} berhasil, akan mengembalikan sebuah objek \textit{Image} yang memuat gambar im1 yang ditempelkan pada gambar baru im.
 	\item Penggunaan fungsi \textit{Image.save()}\\
 	Berfungsi untuk menyimpan gambar dengan nama file yang diberikan. Jika tidak memiliki format yang ditentukan, maka format yang akan digunakan ditentukan dari ekstensi penamaan file, jika memungkinkan. memiliki beberapa parameter diantaranya adalah \textbf{fp} merupakan nama file yang akan digunakan memiliki tipe data string, parameter \textbf{format} merupakan format file yang akan digunakan pada file tersebut, dan \textbf{params} merupakan parameter tambahan untuk penulisan gambar.
 \end{enumerate}
@@ -184,12 +165,11 @@ Base64 merupakan sebuah algoritma yang digunakan untuk mengubah tipe data \texti
 Base64 bekerja dengan cara memotong data biner menjadi segmen-segmen berukuran 6 \textit{bit}. Base64 hanya menggunakan 6 \textit{bit} untuk bisa memenuhi seluruh karakter yang digunakan (26 = 64). Masing-masing segmen tersebut kemudian dibaca ke dalam tipe desimal lalu dikonversi ke karakter ASCII. Sebagai contoh konversi data yang berisi 3 buah \textit{byte} yaitu 155, 162, dan 233. Tipe data \textit{byte} diubah menjadi data biner dan diambung menjadi satu yaitu 100110111010001011101001. Kemudian data biner dipotong menjadi segmen yang berisi 6 \textit{bit} menjadi 100110, 111010, 001011, 101001. Masing-masing data dikonversi menjadi desimal , 58, 11, 4yaitu 381. Terakhir data dikonversikan ke karakter ASCII yang berada pada tabel enkoding Base64 menjadi m6Lp. Cara yang sama namun terbalik prosesnya digunakan untuk mendeskripsi data dari Base64 kembali ke tipe data \textit{byte}.\cite{juan:22:pengumpulan}
 %cite skripsi juan
 
-\section{Framework}
+\section{Framework Laravel}
 \label{sec:framework}
-\textit{Framework} adalah kumpulan kode yang menggunakan \textit{library} dan \textit{tools} secara terstruktur sehingga dapat memudahkan developer untuk membangun dan mengembangkan sebuah perangkat lunak. Pada perangkat lunak yang akan dibangun akan menggunakan beberapa \textit{framework} yang akan membantu proses pengerjaan. Berikut adalah \textit{framework} yang digunakan:
+\textit{Framework} adalah kerangka kerja yang digunakan oleh developer untuk memudahkan pembangunan aplikasi web yang dapat berupa sekumpulan \textit{libary} yang berisi fungsi, \textit{tools}, ataupun \textit{class-class}, dan digunakan sebagai kerangka dalam pembangunan aplikasi web. Umumnya didlama framwork telah menyediakan solusi untuk dapat mengakses \textit{database}, \textit{authentication}, \textit{templating}, \textit{controls}, dan fungsi-fungsi lainnya/ Dalam penggunaan \textit{framework} diharapkan dapat membuat pengembangan aplikasi menajdi rapi dan bersih, memiliki struktur yang optimal, dan \textit{reusable}. 
 
-\subsection{Framework Laravel}
-Laravel adalah \textit{framework} aplikasi web dengan sintaks yang ekspresif dan elegan. Laravel adalah \textit{framework} berbasis PHP yang sifatnya \textit{open source}, dan menggunakan konsep \textit{model-view – controller}. Laravel berada di bawah lisesni MIT \textit{License} dengan menggunakan Github sebagai tempat berbagi code menjalankannya. Kerangka kerja web menyediakan struktur dan titik awal untuk membuat aplikasi Anda, memungkinkan Anda untuk fokus membuat sesuatu yang luar biasa sementara kami memikirkan detailnya. Kelebihan laravel adalah sebagai berikut:
+Laravel adalah \textit{framework} aplikasi web dengan sintaks yang ekspresif dan elegan. Laravel adalah \textit{framework} berbasis PHP yang sifatnya \textit{open source}, dan menggunakan konsep \textit{model-view – controller}. Laravel berada di bawah lisesni MIT \textit{License} dengan menggunakan Github sebagai tempat berbagi code menjalankannya. Laravel berlisensi \textit{open source} yang artinya bebas digunakan tanpa harus melakukan pembayaran. Alamat website remis dari \textit{framework} Laravel adalah \url{https://laravel.com}. Kelebihan laravel adalah sebagai berikut:
 
 \begin{itemize}
 	\item Progresif \textit{Framework} \\
@@ -200,7 +180,7 @@ Laravel adalah \textit{framework} aplikasi web dengan sintaks yang ekspresif dan
 	Laravel memberikan dukungan sistem cache yang terdistribusi dengan cepat. Faktanya laravel dapat menangani ratusan juta \textit{request} setiap bulan.
 \end{itemize}
 
-Dalam penggunaanya laravel memiliki beberapa kekurangan salah satunya yaitu ukuran file yang cukup besar. Di dalam laravel terdapat file yang sifatnya default seperti vendor. File tersebut tidak boleh dihapus sembarangan sehingga ukuran website yang dibuat berukuran cukup besar. Selain itu, dibutuhkan koneksi internet untuk instalasi dan mengunduh library laravel, dan PHP minimal versi 5.4 untuk menjalankannya. Berikut adalah dasar-dasar laravel
+Dalam penggunaan laravel memiliki beberapa kekurangan salah satunya yaitu ukuran file yang cukup besar. Di dalam laravel terdapat file yang sifatnya default seperti vendor. File tersebut tidak boleh dihapus sembarangan sehingga ukuran website yang dibuat berukuran cukup besar. Selain itu, dibutuhkan koneksi internet untuk instalasi dan mengunduh \textit{library} laravel, dan PHP minimal versi 5.4 untuk menjalankannya. Berikut adalah dasar-dasar laravel:
 \begin{enumerate}
 	\item Artisan \\
 	Artisan adalah command line atau perintah yang dijalankan melalui terminal dan disediakan beberapa perintah perintah yang dapat digunakan selama melakukan pengembangan dan pembuatan aplikasi. Salah satu fungsi dari php artisan yaitu “php artisan serve”. Php artisan serve berfungsi untuk membuka website yang telah dibuat tanpa menggunakan web server lokal. Gambar \ref{fig:artisan} merupakan contoh salah satu penggunaan artisan dalam laravel.
@@ -211,14 +191,91 @@ Dalam penggunaanya laravel memiliki beberapa kekurangan salah satunya yaitu ukur
 		\caption{PHP Artisan Laravel}
 		\label{fig:artisan}
 	\end{figure}
+	\item \textit{Controller} \\
+	\textit{Controller} merupakan suatu proses yang bertujuan untuk mengambil data, menambahkan data, menghapus data, atau mengubah data untuk ditampilkan dalam halaman. Cara membuat \textit{controller} adalah dengan menggunakan \textit{command line} dengan memasukkan "php artisan make controller <<nama\_controller>>". File \textit{controller} nantinya akan otomatis terbuat dan sudah masuk ke folder \textit{controller}.
+	
 	
 	\item \textit{Routing} \\
 	\textit{Routing} merupakan suatu proses yang dapat memindahkan tampilan halaman ke halaman lain. Dengan menggunakan \textit{routing}, pengguna dapat menentukan halaman yang ingin dikunjungi. Pengaturan \textit{routing} di laravel terletak pada file \textit{web.php}.
 	
-	\item \textit{Controller} \\
-	\textit{Controller} merupakan suatu proses yang bertujuan untuk mengambil data, menambahkan data, menghapus data, atau mengubah data untuk ditampilkan dalam halaman. Cara membuat \textit{controller} adalah dengan menggunakan \textit{command line} dengan memasukkan "php artisan make controller <<nama\_controller>>". File \textit{controller} nantinya akan otomatis terbuat dan sudah masuk ke folder \textit{controller}.
 	
 	\item \textit{Blade View} \\
-	Blade adalah template \textit{engine} bawaan dari laravel. Blade memiliki kode kode yang lebih mudah untuk menghasilkan laravel. Cara membuat file blade dilakukan secara manual dengan membuat nama\textunderscore file.php.blade di dalam folder views
-\end{enumerate}
+	\textit{Blade} adalah \textit{template engine}. Pada dasarnya \textit{Blade} adalah \textit{view} namun dengan menggunakan \textit{Blade} akan mempermudah untuk mengatur tampilan \textit{website} dan menampilkan data. Cara untuk membuat file \textit{view} menjadi file \textit{Blade} adalah dengan menambahkan ekstensi .blade.php pada file \textit{view}. Dan cara unutk memanggil file \textit{Blade} sama dengan cara untuk memanggil file \textit{view} biasa.
+\end{enumerate}	
+
+Setelah melakukan penginstallan Laravel akan terlihat direktori yang berisi aplikasi Laravel dasar. File dan direktori yang terdapat sebagai berikut:\cite{matt:19:laravel}
+%referensi dari Stauffer, Matt - Laravel_ a Framework for Building Modern PHP Apps-O'Reilly Media, Incorporated (2019)
+	\begin{itemize}
+		\item[] \textbf{app/}
+		\item[] \textbf{bootstrap/}
+		\item[] \textbf{config/}
+		\item[] \textbf{public/}
+		\item[] \textbf{resources/}
+		\item[] \textbf{routes/}
+		\item[] \textbf{storage/}
+		\item[] \textbf{tests/}
+		\item[] \textbf{vendor/}
+		\item[] .editorconfig
+		\item[] .env
+		\item[] .env.example
+		\item[] .gitattributes
+		\item[] .gitignore
+		\item[] artisan
+		\item[] composer.json
+		\item[] composer.lock
+		\item[] package.json
+		\item[] phpunit.xml
+		\item[] readme.md
+		\item[] server.php
+		\item[] webpack.mix.js
+	\end{itemize}
+	
+Direktori utama (\textit{root directory}) mengandung folder-folder berikut secara \textit{default}:
+	\begin{itemize}
+		\item  \textit{app}\\
+		Berisikan sebagian besar aplikasi saat dijalankan. \textit{Model}, \textit{controller}, \textit{commands}, dan kode domain PHP yang dibuat semuanya akan berada di direktori ini.
+		\item  \textit{bootsrap} \\
+		Berisi file-file yang digunakan oleh \textit{framework} Laravel saat setiap kali dijalankan.
+		\item  \textit{config} \\
+		Berisikan semua file konifgurasi aplikasi.
+		\item  \textit{database} \\
+		Berisi file \textit{databse migration} dan \textit{seeds}.
+		\item  \textit{public} \\
+		Direktori yang ditunjuk oleh server ketika menjalankan aplikasi web. Berisi file index.php, yang merupakan \textit{entry point} untuk menangani semua \textit{request} yang masuk ke aplikasi. Didalam folder ini dapat menyumpan beberapa aset dari aplikasi seperti gambar, \textit{JavaScript}, dan \textit{CSS}.
+		\item  \textit{resource }\\
+		Berisi file \textit{view} dari aplikasi yang dibuat. Didalam folder ini juga terdapat file \textit{language} yang digunakan aplikasi.
+		\item  \textit{routes} \\
+		Berisi file yang digunakan untuk mendefinisikan semua \textit{route} ke aplikasi. Secara \textit{default} ada tiga file \textit{route} yang disediakan oelh Laravel yaitu api.php, console.php, dan web.php.
+		\item  \textit{storage} \\
+		Berisi \textit{template Blade} yang dikompilasi, file \textit{session}, file \textit{cache}, dan file lainnya yang dihasilkan secara otomatis oleh Laravel.
+		\item  \textit{tests} \\
+		Berisi semua file \textit{test} yang dibuat untuk aplikasi.
+		\item  \textit{vendor} \\
+		Berisikan tempat \textit{Composer} menginstal dependensinya. Direktori ini akan diabaikan oleh Git, karena \textit{Composer} diharapkan dapat berjalan sebagai bagian dari proses implementasi pada server-server jarak jauh.
+	\end{itemize}
+Direktori utama juga berisi file-file berikut:
+	\begin{itemize}
+		\item .\textit{editorconfig} \\
+		Memberikan instruksi kepada IDE/editor teks  tentang standar penulisan kode Laravel (seperti, ukuran indentasi, set karakter, dan apakah harus memotong \textit{whitespace} di ujung baris).
+		\item \textit{.env }dan \textit{.env.example} \\
+		Menentukan variabel-variabel lingkungan (variabel yang diharapkan berbeda di setiap lingkungan dan karena itu tidak dimasukkan ke dalam \textit{version control}). \textit{.env.example} adalah template yang setiap lingkungan harusnya menduplikasi untuk membuat file \textit{.env}-nya sendiri, yang akan diabaikan oleh Git.
+		\item \textit{.gitattributes} dan \textit{.gitignore} \\
+		Berisikan file-file untuk pengkonfigurasian Git.
+		\item artisan \\
+		Berisikan file untuk menajalakan perintah-perintah artisan dari \textit{command-line}.
+		\item composer.json dan composer.lock \\
+		Berisikan file konfigurasi untuk \textit{Composer}. \textit{composer.json} dapat diedit oleh pengguna sedangkan \textit{composer.lock} tidak dapat diedit. File-file ini berisi informasi dasar tentang proyek dan juga mendefinisikan dependensi dari PHP.
+		\item package.json \\
+		File yang berisikan sama seperti \textit{composer.json}, tetapi untuk aset \textit{front-end} dan dependensi dari sistem pembangunan. File ini juga memberi instruksi kepada NPM tentang dependensi berbasis \textit{JavaScript} yang harus diunduh.
+		\item phpunit.xml \\
+		Berisikan file konfigurasi untuk \textit{PHPUnit} merupakan alat yang digunakan Laravel secara \textit{default} untuk pengujian.
+		\item readme.md \\
+		Sebuah file \textit{Markdown} yang memberikan pengenalan dasar tentang Laravel. File ini tidak dapat dilihat jika menggunakan instalator dari Laravel.
+		\item server.php \\
+		Berisikan sebuah server cadangan yang mencoba untuk memungkinkan server yang kurang mampu agar tetap dapat melihat \textit{preview} aplikasi Laravel.
+		\item webpack.mix.js \\
+		File konfigurasi yasng bersifat optional untuk \textit{Mix}. Jika menggunakan Elixir, maka akan melihat \textit{gulpfile.js} sebagai gantinya. File-file ini digunakan untuk memberikan instruksi kepada sistem pembangunan tentang cara mengkompilasi dan memproses aset \textit{front-end }aplikasi Laravel.
+	\end{itemize}
+
+
 
