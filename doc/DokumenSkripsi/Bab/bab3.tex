@@ -23,6 +23,7 @@ Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Labo
 \end{figure}
 
 \subsection{Mengunduh File Text}
+
 Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada Hadoop
 HDFS.\cite{juan:22:pengumpulan} Pada proses pengunduhan data harus terlebih dahulu mendaftarkan akun HDFS pada admin laboratoium FTIS UNPAR(Universitas Katholik Parahyangan) agar mendapat akses kedalam sistem penyimpanan HDFS(\textit{Hadoop Distributed File System}). Setelah mendapatkan aksesnya, lalu dapat mengunduh data citra satelit kelurahan per kota dengan perintah seperti pada kode \ref{code:cmdhdfs}. 
 
@@ -49,6 +50,7 @@ tile citra satelit dengan format png yang sudah dienkripsi dalam bentuk Base64.\
 \end{figure} 
 
 \subsection{Mengkonversi Baris Menjadi Gambar .png}
+\label{subsec:pengkorvesianBaris}
 Dalam penelitian ini, telah dikembangkan sebuah \textit{script} yang bertujuan untuk mengekstraksi gambar pertile dari data Kota\_Bandung.txt. Script yang telah dikembangkan dapat dilihat kode program \ref{code:ekstraksiGambar}.
 
 \begin{lstlisting}[language=Python, caption=Script Mengekstrasi gambar per tile,label={code:ekstraksiGambar}]
@@ -87,6 +89,7 @@ Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam fil
 \end{figure} 
 
 \subsection{Menggabungkan Gambar}
+\label{subsec:gabunggambar}
 \textit{Script} yang dikembangkan dalam penelitian ini memiliki tujuan utama untuk menggabungkan sejumlah gambar per tile menjadi sebuah gambar utuh yang merepresentasikan kelurahan atau kecamatan. Kode pemrograman dapat dilihat pada kode program \ref{code:penggabunganGambar}, menggunakan library PIL (\textit{Python Imaging Library}) dengan mengimpor kelas \textit{Image}. Terdapat beberapa variabel kunci yang ditentukan, seperti nama\_kecamatan, jumlah\_baris, dan jumlah\_kolom, yang digunakan untuk mengidentifikasi nama kecamatan atau kelurahan serta jumlah baris dan kolom yang digunakan untuk mengatur tata letak gambar per tile.
 
 \begin{lstlisting}[language=Python, caption=Script Penggabungan Gambar,label={code:penggabunganGambar}]
@@ -113,6 +116,57 @@ Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam fil
 
 Selanjutnya, variabel panjang\_tile dan lebar\_tile menentukan ukuran tile, yang dalam contoh ini adalah 256 piksel. Variabel panjang\_gambar dan lebar\_gambar dihitung berdasarkan jumlah kolom dan baris, sehingga ukuran gambar akhir dapat ditentukan. Proses pembuatan gambar  dimulai dengan inisiasi variabel canvas menggunakan fungsi \textit{Image.new }dengan mode "RGB" dan ukuran gambar sesuai dengan panjang\_gambar dan lebar\_gambar. Selanjutnya, terdapat dua \textit{loop} di mana \textit{loop} pertama digunakan untuk mengatur koordinat y, dan loop kedua untuk koordinat x. Di dalam \textit{loop-loop} tersebut, variabel img digunakan untuk membuka gambar tile yang sesuai dengan koordinatnya dengan menambahkan format file yang sesuai. Gambar yang diakses melalui variabel img kemudian disisipkan ke dalam gambar utuh \textit{canvas} menggunakan fungsi \textit{paste}. Dan terakhir, \textit{canvas.save} untuk menyimpan hasil gambar akhir dengan nama sesuai dengan 'nama\_kecamatan'. Hasil akhir gambar-gambar per tile menjadi gambar utuh yang merepresentasikan wilayah atau kecamatan yang diinginkan seperti pada gambar \ref{fig:ciumbuleuit}.
 
+\section{Pembentukan Gambar Hasil Segmentasi/Klasterisasi}
+Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data hasil segmentasi area hijau yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada Hadoop
+HDFS.\cite{juan:22:pengumpulan} Pengunduhan data gambar citra satelit hasil segmentasi area hijau kelurahan dapat dilakukan dengan kode perintah seperti pada kode \ref{code:cmdhdfssegmentasi}
+
+\begin{lstlisting}[language=Bash, caption= Pengembailan Data Hasil Segemntasi,label={code:cmdhdfssegmentasi}]
+	>hdfs dfs -get /user/if18059/geodata/result/kmeans-5/arcgis/16/Jawa_Barat/Kota_Bandung.csv .	
+\end{lstlisting}
+
+Kode Perintah \ref{code:cmdhdfssegmentasi} digunakan untuk mengunduh file CSV dari HDFS dan menyimpannya di direktori lokal tempat menjalankan perintah tersebut. Perintah \texttt{hdfs dfs -get} merupakan perintah untuk mengunduh file dari HDFS. Perintah /user/if18059/geodata/result/kmeans-5~~/arcgis/16/Jawa\_Barat/Kota\_Bandung.csv adalah jalur lengkap ke file yang ingin diunduh dari HDFS. File yang dimaksud adalah \texttt{Kota\_Bandung.csv} yang terletak di direktori /user/if18059/geodata/result/\\kmeans-5/arcgis/16/Jawa\_Barat/ di HDFS. Dan Perintah titik ("\texttt{.}") merupakan tempat menyimpan file yang diunduh ke direktori lokal.
+	
+
+File Kota\_Bandung.csv berisikan data hasil klasterisasi. Isi dari file Kota\_Bandung.csv memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan posisi x tile citra satelit. Pada kolom ketiga diisi dengan posisi y tile citra satelit. Pada kolom keempat diisi dengan nilai panjang dari tile citra satelit pada kelurahan tersebut. Pada kolom kelima diisi dengan nilai lebar dari tile citra satelit pada kelurahan tersebut. Pada kolom keenam diisi dengan data gambar citra satelit yang sudah disegmentasi dengan format png berdasarkan hasil klasterisasi dan di enkripsi menggunakan Base64. Pada kolom ketujuh diisi dengan data gambar citra satelit asli dengan format png dan di enkripsi menggunakan Base64. Pada kolom kedelapan diisi dengan nilai luas area hijau dalam km2. Terakhir pada kolom kesembilan diisi dengan nilai luas area kelurahan.\cite{juan:22:pengumpulan} 
+
+Proses pengekstrasian file Kota\_Bandung.csv berbeda dengan proses pengektrasian yang ada pada \ref{subsec:pengkorvesianBaris} dikarenakan format file yang berbeda maka script yang digunakan juga berbeda. Penggunaan script dapat pada file Kota\_Bandung.csv dilihat pada \ref{code:ekstrakCSV}. 
+\begin{lstlisting}[language=Python, caption=Script Penggabungan Gambar Hasil Klasterisasi ,label={code:ekstrakCSV}]
+	import base64
+	import csv
+	
+	def extract_image_pertile(csv_file):
+		with open(csv_file, 'r') as file:
+			csv_reader = csv.reader(file)
+	
+			for row in csv_reader:
+				kelurahan = row[0]
+				kordinat_x = row[1]
+				kordinat_y = row[2]
+				segmented_image_data = row[5]
+				img_data = base64.b64decode(segmented_image_data)
+				filename = f"{kelurahan}{kordinat_y}{kordinat_x}.png"
+				
+				with open(filename, 'wb') as img_file:
+				img_file.write(img_data)
+	
+	
+	if __name__ == "__main__":
+	
+	csv_file = "Kota_Bandung.csv"
+	csv.field_size_limit(1000000)
+	
+	extract_image_pertile(csv_file)
+	
+	
+\end{lstlisting}
+
+Script Python di atas dirancang untuk memproses data gambar tersegmen dalam format base64 yang terdapat dalam sebuah file Kota\_Bandung.csv. Script ini  bertujuan untuk mengekstrak dan mendekode data gambar tersebut, kemudian menyimpannya sebagai file gambar PNG. Fungsi utama yang terlibat dalam proses ini disebut \textit{extract\_image\_pertile}, yang akan menerima nama file CSV sebagai parameter. Fungsi tersebut membuka file Kota\_Bandung.csv, lalu membaca setiap baris, dan membaca nilai-nilai yang pentin seperti kelurahan, koordinat x dan y, serta data gambar tersegmen yang dienkripsi dalam base64. Selanjutnya, data gambar tersebut didekode menggunakan \textit{library }base64 dan disimpan sebagai file gambar PNG dengan nama sesuai dengan kelurahan yang terbentuk dari gabungan nilai-nilai kolom tertentu.
+
+Dalam bagian utama script, terdapat pemanggilan fungsi \textit{extract\_image\_pertile }dengan menyertakan nama file Kota\_Bandung.csv yang akan diproses. Sebagai tambahan, script ini mengatur batas ukuran untuk file CSV dengan csv. Fungsi \textit{field\_size\_limit} untuk menangani batasan ukuran default yang ada. Dengan menjalankan script ini, file gambar PNG akan dihasilkan untuk setiap baris. Gambar dari setiap baris tersebut merupakan gambar pertile dari tiap kelurahan.
+
+Setelah mendapatkan gambar per tile langkah selanjut yaitu menggabungkan gambar. Proses penggabungan gambar segmentasi area hijau sama dengan proses penggabungan gambar kelurahan sebelum segmentasi. Pada proses tersebut dapat dilihat pada bab \ref{subsec:gabunggambar}.
+
+
 
 \section{Analisis Perangkat Lunak}
 Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seorang pengguna untuk menjalankan sebuah perangkat lunak yang akan dikembankan. Sehingga segala proses sistem dijalankan oleh aktor yang terlibat. Dalam sistem ini hanya memiliki aktor sebagai \textit{user}. Seorang pemangku kepentingan atau pembuat keputusan memegang peranan sebagai \textit{user} itu sendiri. Dalam menggambarkan peranan pengguna terhadap interaksinya dengan sistem, maka dapat dilihat pada diagram \textit{use case} yang terdapat pada Gambar~\ref{fig:useCaseUser} berikut.
@@ -126,6 +180,64 @@ Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seor
 
 Pada Gambar~\ref{fig:useCaseUser}, seorang aktor atau \textit{user} pada sistem berperan dalam memegang akses penuh ke dalam sistem. Dalam hal ini \textit{user} dapat masuk ke dalam sistem yang telah dibangun, dapat memilih kecamatan/kelurahan yang ingin dilihat. Setiap kecamatan/kelurahan yang dipilih \textit{user} dapat melihat luas wilayah, luas area hijau, kebutuhan area hijau, gambar citra satelit/gambar luas area hijau, dan juga dapat mengakses ke halaman \textit{Google Maps} yang merujuk ke lokasi kecamatan/kelurahan yang dipilih.
 	
+Berdasarkan diagram \textit{use case }pada Gambar \ref{fig:useCaseUser}, berikut adalah daftar skenario unutk setiap \textit{use case:}	
+
+\begin{enumerate}
+	\item Use Case: Melihat kecamatan atau kelurahan \\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.9\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textbf{\textit{Actor Actions}}                                       & \textbf{\textit{System Response}}                                          \\ 
+				\hline
+				Pengguna menekan pada \textit{dropdown }kecamatan/kelurahan\textit{~} &                                                                            \\
+				& \textit{Dropdown}~akan menampilkan daftar kecamatan/kelurahan              \\
+				Pengguna dapat menekan salah satu pada daftar kecamatan/kelurahan     &                                                                            \\
+				& Menampilkan informasi dari kecamatan/kelurahan yang dipilih oleh pengguna  \\
+				\hline
+			\end{tabular}%
+		}
+		
+	\end{table}
+	
+	\item Use Case: Melihat luas wilayah kelurahan\\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	
+	\item Use Case: Melihat luas area hijau kelurahan\\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	
+	\item Use Case: Melihat kebutuhan area hijau\\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	
+	\item Use Case: Melihat gambar citra satelit\\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	
+	\item Use Case: Mengakses ke \textit{google maps}\\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	
+	\item Use Case: Melihar gambar luas area hijau\\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+\end{enumerate}
+
+
+
 \begin{table}[H]
 	\centering
 	\caption{Skenario melihat kecamatan atau kelurahan}
