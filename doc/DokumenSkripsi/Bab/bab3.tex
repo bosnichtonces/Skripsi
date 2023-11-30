@@ -4,7 +4,7 @@
 Pada bab ini akan dijelaskan mengenai proses pengumpulan data citra satelit yang berada di Hadoop LAB Unpar, pengkonversian data \textit{text} menjadi gambar, dan bagaimana cara penggabungan gambar. Juga akan menjelaskan tetang analisis kebutuhan dalam perancangan perangkat lunak. 
 
 \section{Proses Pembentukan Gambar}
-Pada Gambar \ref{fig:ciumbuleuit} merupakan hasil dari penggabungan gambar per \textit{tile}. Langkah-langkah dalam proses pengambilan data berupa gambar citra satelit dari kecamatan atau kelurahan di Kota Bandung. 
+Pada Gambar \ref{fig:ciumbuleuit} merupakan hasil dari penggabungan gambar per \textit{tile}. Langkah-langkah dalam proses pengambilan data berupa gambar citra satelit dari kelurahan di Kota Bandung. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Gambar/Ciumbuleuit.png}
@@ -12,7 +12,7 @@ Pada Gambar \ref{fig:ciumbuleuit} merupakan hasil dari penggabungan gambar per \
 	\label{fig:ciumbuleuit}
 \end{figure} 
 
-Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Laboratoium Unpar. Kemudian data yang telah diambil berupa file ".txt" yang setiap baris dari file tersebut merupakan sebuah file gambar berupa \textit{tile} seperti pada gambar(\ref{fig:tileCiumbuleuit}). Kumpulan gambar per \textit{tile} akan digabungkan dengan menggunakan \textit{script}. Penggabungan gambar setiap \textit{tile} akan menghasilkan sebuah gambar dari kecamatan/kelurahan seperti pada gambar \ref{fig:ciumbuleuit}.
+Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Laboratoium Unpar. Kemudian data yang telah diambil berupa file ".txt" yang setiap baris dari file tersebut merupakan sebuah file gambar berupa \textit{tile} seperti pada gambar(\ref{fig:tileCiumbuleuit}). Kumpulan gambar per \textit{tile} akan digabungkan dengan menggunakan \textit{script}. Penggabungan gambar setiap \textit{tile} akan menghasilkan sebuah gambar dari kelurahan seperti pada gambar \ref{fig:ciumbuleuit}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{Ciumbuleuit21.png}
@@ -31,7 +31,6 @@ HDFS.\cite{juan:22:pengumpulan} Pada proses pengunduhan data harus terlebih dahu
 	>hdfs dfs -get /user/if18059/geodata/cropped/arcgis/16/Jawa_Barat/Kota_Bandung.txt .	
 \end{lstlisting}
 
-
 Metode yang umum digunakan untuk mengunduh file dari server jarak jauh secara aman adalah dengan menggunakan SCP (\textit{Secure Copy Protocol}). SCP adalah perintah baris perintah yang memungkinkan pengguna untuk mentransfer file antara komputer lokal dan server jarak jauh melalui koneksi yang aman. Dalam pengunduhan file dari server dapat menggunakan perintah 'scp' diikuti oleh alamat sumber file di server dan alamat tujuan pada penyimpanan lokal. Dapat dilihat pada \textit{command-line} \ref{code:cmdscp}, akan mengunduh file 'Kota\_Bandung.txt' dari server HDFS laboratorium FTIS UNPAR ke lokasi yang ditentukan pada penyimpanan lokal. Dengan demikian, File yang telah diunduh dapat dengan mudah digunakan.
 
 \begin{lstlisting}[language=Bash, caption=\textit{Command-line} SCP,label={code:cmdscp}]
@@ -41,7 +40,6 @@ Metode yang umum digunakan untuk mengunduh file dari server jarak jauh secara am
 Data Kota\_Bandung.txt dapat dilihat pada gambar \ref{fig:kotabandungteks}. Isi dari berkas Kota\_Bandung.txt memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan nama kota. Pada kolom ketiga diisi dengan nama provinsi. Kolom keempat diisi dengan nilai panjang tile untuk kelurahan tersebut. Kolom kelima diisi dengan nilai lebar dari tile untuk kelurahan tersebut. Kolom keenam diisi dengan posisi x koordinat tile untuk kelurahan tersebut. Kolom ketujuh diisi dengan posisi y koordinat tile untuk kelurahan tersebut. Kolom kedelapan diisi dengan ukuran luas per piksel dalam km2 untuk tile pada kelurahan tersebut. Terakhir kolom kesembilan diisi dengan data
 tile citra satelit dengan format png yang sudah dienkripsi dalam bentuk Base64.\cite{juan:22:pengumpulan}
  
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Gambar/data kota\_bandung.png}
@@ -77,9 +75,9 @@ Dalam penelitian ini, telah dikembangkan sebuah \textit{script} yang bertujuan u
 		
 \end{lstlisting}
 
-\textit{Script }ini menggunakan \textit{library} base64 untuk mengelola data gambar yang disimpan dalam format base64. Pertama, \textit{script} membuka file Kota\_Bandung.txt dalam mode pembacaan ('r+'). Variabel kordinat\_x dan kordinat\_y diinisialisasi ke nilai 0. Selama iterasi berlangsung, data dari file dibaca per baris menggunakan perulangan \textit{for line in file}. Setiap baris diproses dengan membaginya menjadi elemen-elemen dengan pemisah titik koma (';'). Data gambar yang terdapat di kolom ke-8 di-\textit{decode} dari format base64 menggunakan base64.b64decode dan disimpan dalam variabel imgdata. Selanjutnya, nama file gambar ditentukan dengan menggabungkan beberapa elemen, seperti nama kecamatan atau kelurahan, kordinat\_x, dan kordinat\_y, dan diberi ekstensi '.png'.
+\textit{Script }ini menggunakan \textit{library} base64 untuk mengelola data gambar yang disimpan dalam format base64. Pertama, \textit{script} membuka file Kota\_Bandung.txt dalam mode pembacaan ('r+'). Variabel kordinat\_x dan kordinat\_y diinisialisasi ke nilai 0. Selama iterasi berlangsung, data dari file dibaca per baris menggunakan perulangan \textit{for line in file}. Setiap baris diproses dengan membaginya menjadi elemen-elemen dengan pemisah titik koma (';'). Data gambar yang terdapat di kolom ke-8 di-\textit{decode} dari format base64 menggunakan base64.b64decode dan disimpan dalam variabel imgdata. Selanjutnya, nama file gambar ditentukan dengan menggabungkan beberapa elemen, seperti nama kelurahan, kordinat\_x, dan kordinat\_y, dan diberi ekstensi '.png'.
 
-Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam file baru dengan nama yang telah ditentukan dalam mode binary ('wb') menggunakan \textit{open} dan imgd.write. Terakhir, setelah selesai mengolah semua baris, file sumber Kota\_Bandung.txt ditutup menggunakan \textit{file.close()}. Dengan \textit{script} code ini, data gambar dalam format base64 di-\textit{extract} dan disimpan sebagai file gambar .png dengan nama yang koordinat\_x dan koordinat\_y. Hasil dari penkonversian gambar dari bari dapat dilihat pada \ref{fig:pertileciumbuleuit}
+Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam file baru dengan nama yang telah ditentukan dalam mode binary ('wb') menggunakan \textit{open} dan imgd.write. Terakhir, setelah selesai mengolah semua baris, file sumber Kota\_Bandung.txt ditutup menggunakan \textit{file.close()}. Dengan \textit{script} code ini, data gambar dalam format base64 di-\textit{extract} dan disimpan sebagai file gambar .png dengan nama yang koordinat\_x dan koordinat\_y. Hasil dari penkonversian gambar dari bari dapat dilihat pada \ref{fig:pertileciumbuleuit}.
 
 \begin{figure}[H]
 	\centering
@@ -90,7 +88,7 @@ Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam fil
 
 \subsection{Menggabungkan Gambar}
 \label{subsec:gabunggambar}
-\textit{Script} yang dikembangkan dalam penelitian ini memiliki tujuan utama untuk menggabungkan sejumlah gambar per tile menjadi sebuah gambar utuh yang merepresentasikan kelurahan atau kecamatan. Kode pemrograman dapat dilihat pada kode program \ref{code:penggabunganGambar}, menggunakan library PIL (\textit{Python Imaging Library}) dengan mengimpor kelas \textit{Image}. Terdapat beberapa variabel kunci yang ditentukan, seperti nama\_kecamatan, jumlah\_baris, dan jumlah\_kolom, yang digunakan untuk mengidentifikasi nama kecamatan atau kelurahan serta jumlah baris dan kolom yang digunakan untuk mengatur tata letak gambar per tile.
+\textit{Script} yang dikembangkan dalam penelitian ini memiliki tujuan utama untuk menggabungkan sejumlah gambar per tile menjadi sebuah gambar utuh yang merepresentasikan kelurahan. Kode pemrograman dapat dilihat pada kode program \ref{code:penggabunganGambar}, menggunakan library PIL (\textit{Python Imaging Library}) dengan mengimpor kelas \textit{Image}. Terdapat beberapa variabel kunci yang ditentukan, seperti nama\_kecamatan, jumlah\_baris, dan jumlah\_kolom, yang digunakan untuk mengidentifikasi nama kelurahan serta jumlah baris dan kolom yang digunakan untuk mengatur tata letak gambar per tile.
 
 \begin{lstlisting}[language=Python, caption=Script Penggabungan Gambar,label={code:penggabunganGambar}]
 	from PIL import Image
@@ -118,14 +116,13 @@ Selanjutnya, variabel panjang\_tile dan lebar\_tile menentukan ukuran tile, yang
 
 \section{Pembentukan Gambar Hasil Segmentasi/Klasterisasi}
 Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data hasil segmentasi area hijau yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada Hadoop
-HDFS.\cite{juan:22:pengumpulan} Pengunduhan data gambar citra satelit hasil segmentasi area hijau kelurahan dapat dilakukan dengan kode perintah seperti pada kode \ref{code:cmdhdfssegmentasi}
+HDFS.\cite{juan:22:pengumpulan} Pengunduhan data gambar citra satelit hasil segmentasi area hijau kelurahan dapat dilakukan dengan kode perintah seperti pada kode \ref{code:cmdhdfssegmentasi}.
 
 \begin{lstlisting}[language=Bash, caption= Pengembailan Data Hasil Segemntasi,label={code:cmdhdfssegmentasi}]
 	>hdfs dfs -get /user/if18059/geodata/result/kmeans-5/arcgis/16/Jawa_Barat/Kota_Bandung.csv .	
 \end{lstlisting}
 
 Kode Perintah \ref{code:cmdhdfssegmentasi} digunakan untuk mengunduh file CSV dari HDFS dan menyimpannya di direktori lokal tempat menjalankan perintah tersebut. Perintah \texttt{hdfs dfs -get} merupakan perintah untuk mengunduh file dari HDFS. Perintah /user/if18059/geodata/result/kmeans-5~~/arcgis/16/Jawa\_Barat/Kota\_Bandung.csv adalah jalur lengkap ke file yang ingin diunduh dari HDFS. File yang dimaksud adalah \texttt{Kota\_Bandung.csv} yang terletak di direktori /user/if18059/geodata/result/\\kmeans-5/arcgis/16/Jawa\_Barat/ di HDFS. Dan Perintah titik ("\texttt{.}") merupakan tempat menyimpan file yang diunduh ke direktori lokal.
-	
 
 File Kota\_Bandung.csv berisikan data hasil klasterisasi. Isi dari file Kota\_Bandung.csv memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan posisi x tile citra satelit. Pada kolom ketiga diisi dengan posisi y tile citra satelit. Pada kolom keempat diisi dengan nilai panjang dari tile citra satelit pada kelurahan tersebut. Pada kolom kelima diisi dengan nilai lebar dari tile citra satelit pada kelurahan tersebut. Pada kolom keenam diisi dengan data gambar citra satelit yang sudah disegmentasi dengan format png berdasarkan hasil klasterisasi dan di enkripsi menggunakan Base64. Pada kolom ketujuh diisi dengan data gambar citra satelit asli dengan format png dan di enkripsi menggunakan Base64. Pada kolom kedelapan diisi dengan nilai luas area hijau dalam km2. Terakhir pada kolom kesembilan diisi dengan nilai luas area kelurahan.\cite{juan:22:pengumpulan} 
 
@@ -166,7 +163,33 @@ Dalam bagian utama script, terdapat pemanggilan fungsi \textit{extract\_image\_p
 
 Setelah mendapatkan gambar per tile langkah selanjut yaitu menggabungkan gambar. Proses penggabungan gambar segmentasi area hijau sama dengan proses penggabungan gambar kelurahan sebelum segmentasi. Pada proses tersebut dapat dilihat pada bab \ref{subsec:gabunggambar}.
 
+Dalam pencarian data gambar hasil segmentasi ditemukan data berupa file Bandung.txt. Setelah melakukan pemprosesan pada data file Bandung.txt, file tersebut merupakan data file dari Kabupaten Bandung. File Bandung.txt juga memiliki beberapa kolom yang menunjukan nama kelurahan, nama kabupaten, nama provinsi, panjang tile, lebar tile, koordinat tile(x,y), data poligon,dan , tile citra satelit yang di encode menggunakan Base64. Proses pengecekan file tersebut dilakukan dengan menggunakan \textit{script} python yang dikembangkan.
 
+\begin{lstlisting}[language=Python, caption=Script Pengecekan File .txt,label={code:cekData}]
+	#cek per satu kelurahan
+	file = open("Bandung.txt","r+")
+	counter = 0
+	while True:
+	file_line = file.readline().split(";",8)
+	
+	if not file.readline():
+	break
+	
+	print(file_line[0],file_line[1],file_line[2],file_line[3],file_line[4],file_line[5],file_line[6],file_line[7])
+	counter += 1
+
+	print(counter)
+	
+	file.close()
+\end{lstlisting}
+
+Setelah \textit{script} \ref{code:cekData} dijalakan ternyata terdapat data yang hilang. Sehingga saat melakukan pengekstraksian \ref{code:ekstraksiGambar} gambar ada beberapa tile yang tidak hilang. Tile-tile yang hilang mengakibatkan gambar tidak dapat digabung menjadi sebuah gambar utuh dari kelurahan kabupaten. Contoh data dari Bandung.txt dapat dilihat pada gambar. Dari gambar tersebut bahwa nama kelurahan kabupaten adalah Kopo, dilanjutkan dengan nama kabupaten Bandung, provinsi Jawa Barat, lebar tile dan panjang tile. Pada kolom koordinat x dan y ada beberapa yang hilang. Data yang hilang adalah nilai x = 0, dan nilai y = 2 tidak terdapat pada kolom.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Gambar/kabupatenKopo.png}
+	\caption{Proses pengecekan file Bandung.txt}
+	\label{fig:kabupatenKopo}
+\end{figure}  
 
 \section{Analisis Perangkat Lunak}
 Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seorang pengguna untuk menjalankan sebuah perangkat lunak yang akan dikembankan. Sehingga segala proses sistem dijalankan oleh aktor yang terlibat. Dalam sistem ini hanya memiliki aktor sebagai \textit{user}. Seorang pemangku kepentingan atau pembuat keputusan memegang peranan sebagai \textit{user} itu sendiri. Dalam menggambarkan peranan pengguna terhadap interaksinya dengan sistem, maka dapat dilihat pada diagram \textit{use case} yang terdapat pada Gambar~\ref{fig:useCaseUser} berikut.
@@ -178,181 +201,132 @@ Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seor
 	\label{fig:useCaseUser}
 \end{figure}
 
-Pada Gambar~\ref{fig:useCaseUser}, seorang aktor atau \textit{user} pada sistem berperan dalam memegang akses penuh ke dalam sistem. Dalam hal ini \textit{user} dapat masuk ke dalam sistem yang telah dibangun, dapat memilih kecamatan/kelurahan yang ingin dilihat. Setiap kecamatan/kelurahan yang dipilih \textit{user} dapat melihat luas wilayah, luas area hijau, kebutuhan area hijau, gambar citra satelit/gambar luas area hijau, dan juga dapat mengakses ke halaman \textit{Google Maps} yang merujuk ke lokasi kecamatan/kelurahan yang dipilih.
+Pada Gambar~\ref{fig:useCaseUser}, seorang aktor atau \textit{user} pada sistem berperan dalam memegang akses penuh ke dalam sistem. Dalam hal ini \textit{user} dapat masuk ke dalam sistem yang telah dibangun, dapat memilih kelurahan yang ingin dilihat. Setiap kelurahan yang dipilih \textit{user} dapat melihat luas wilayah, luas area hijau, kebutuhan area hijau, gambar citra satelit/gambar luas area hijau, dan juga dapat mengakses ke halaman \textit{Google Maps} yang merujuk ke lokasi kelurahan yang dipilih.
 	
 Berdasarkan diagram \textit{use case }pada Gambar \ref{fig:useCaseUser}, berikut adalah daftar skenario unutk setiap \textit{use case:}	
 
 \begin{enumerate}
-	\item Use Case: Melihat kecamatan atau kelurahan \\
+	\item Use Case: Melihat kelurahan \\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kelurahan dipilih\\
 	\textit{\textbf{Steps: }}
 	\begin{table}[H]
 		\centering
-		\resizebox{0.9\columnwidth}{!}{%
+		\resizebox{0.8\columnwidth}{!}{%
 			\begin{tabular}{|l|l|}
 				\hline
-				\textbf{\textit{Actor Actions}}                                       & \textbf{\textit{System Response}}                                          \\ 
-				\hline
-				Pengguna menekan pada \textit{dropdown }kecamatan/kelurahan\textit{~} &                                                                            \\
-				& \textit{Dropdown}~akan menampilkan daftar kecamatan/kelurahan              \\
-				Pengguna dapat menekan salah satu pada daftar kecamatan/kelurahan     &                                                                            \\
-				& Menampilkan informasi dari kecamatan/kelurahan yang dipilih oleh pengguna  \\
-				\hline
+				\textit{\textbf{Actor Actions}}                           & \textit{\textbf{System Response}}          \\ \hline
+				\multirow{2}{*}{Pengguna menekan pada dropdown kelurahan} & \multirow{2}{*}{}                          \\
+				&                                            \\
+				& Dropdown akan menampilakan daftar kelurahan \\
+				Pengguna dapat memilih salah satu kelurahan               &                                            \\
+				& Ditampilkan informasi dari kelurahan       \\ \hline
 			\end{tabular}%
 		}
-		
 	\end{table}
 	
 	\item Use Case: Melihat luas wilayah kelurahan\\
 	\textit{\textbf{Actor}}: Pengguna \\
-	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
-	
+	\textit{\textbf{Pre Condition: }}Pengguna berada pada halaman utama website dan telah memilih kelurahan yang ingin dilihat\\
+	\textit{\textbf{Post Condition:}} Pengguna dapat melihat luas wilayah kelurahan yang dipilih.\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}  & \textit{\textbf{System Response}}                    \\ \hline
+				Pengguna telah memilih kelurahan &                                                      \\
+				& Ditampilkan informasi tentang luas wilayah kelurahan \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
 	\item Use Case: Melihat luas area hijau kelurahan\\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari luas area hijau kelurahan yang dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}  & \textit{\textbf{System Response}}                    \\ \hline
+				Pengguna telah memilih kelurahan &                                                      \\
+				& Ditampilkan informasi tentang luas wilayah kelurahan \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
+	
 	
 	\item Use Case: Melihat kebutuhan area hijau\\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kebutuhan area hijau kelurahan dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}  & \textit{\textbf{System Response}}                    \\ \hline
+				Pengguna telah memilih kelurahan &                                                      \\
+				& Ditampilkan informasi tentang kebutuhan area hijau kelurahan \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
 	
 	\item Use Case: Melihat gambar citra satelit\\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi berupa gambar kelurahan yang dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}  & \textit{\textbf{System Response}}                    \\ \hline
+				Pengguna telah memilih kelurahan &                                                      \\
+				& Ditampilkan gambar citra satelit kelurahan \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
 	
 	\item Use Case: Mengakses ke \textit{google maps}\\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi berupa  \textit{link googlemaps }dari kelurahan yang dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}  & \textit{\textbf{System Response}}                    \\ \hline
+				Pengguna telah memilih kelurahan &                                                      \\
+				& Ditampilkan \textit{link googlemaps }kelurahan \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
 	
 	\item Use Case: Melihar gambar luas area hijau\\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
-	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kecamatan atau kelurahan dipilih\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kelurahan dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}          & \textit{\textbf{System Response}}                  \\ \hline
+				Pengguna memilih \textit{button} citra satelit    &                                                    \\
+				& Ditampilkan informasi gambar dari kelurahan        \\
+				Pengguna memilih \textit{button} area hijau &                                                    \\
+				& Ditampilkan gambar area hijau dari kelurahan \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
 \end{enumerate}
-
-
-
-\begin{table}[H]
-	\centering
-	\caption{Skenario melihat kecamatan atau kelurahan}
-	\label{tab:melihatKecamatanatauKelurahan}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case}        & Melihat kecamatan/kelurahan                                                                   \\ \hline
-			Aktor                    & \textit{User}                                                                                 \\ \hline
-			Tujuan                   & Melihat informasi dari kecamatan/kelurahan yang dipilih oleh user                             \\ \hline
-			Kondisi                  & \textit{User} telah dapat mengakses website dan berada pada halaman utama dari website                 \\ \hline
-			\multirow{4}{*}{Langkah} & 1. \textit{User} menekan pada \textit{dropdown} kecamatan/kelurahan                                             \\ \cline{2-2} 
-			& 2. \textit{Dropdown} akan menampilkan daftar kecamatan/kelurahan                                       \\ \cline{2-2} 
-			& 3. \textit{User} dapat menekan salah satu pada daftar kecamatan/kelurahan                              \\ \cline{2-2} 
-			& 4. Perangkat lunak akan menampilkan informasi dari kecamatan/kelurahan yang dipilih oleh \textit{user} \\ \hline
-		\end{tabular}%
-	}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\caption{Skenario melihat luas wilayah kecamatan/kelurahan}
-	\label{tab:melihatLuasWilayah}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case} & Melihat kebutuhan area hijau                                                                       \\ \hline
-			Aktor             & \textit{User}                                                                                      \\ \hline
-			Tujuan            & Melihat kebutuhan area hijau dari kecamatan/kelurahan yang dipilih                                 \\ \hline
-			Kondisi           & \textit{User} berada pada halaman utama dari website dan telah milih kecamatan/kelurahan yang ingin dilihat \\ \hline
-			Langkah           & 1. Perangkat Lunak akan menampilkan kebutuhan area hijau dari kecamatan/kelurahan yang dipilih     \\ \hline
-		\end{tabular}%
-	}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\caption{Skenario melihat luas area hijau}
-	\label{tab:melihatLuasAreaHijau}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case} & Melihat luas area hijau                                                                       \\ \hline
-			Aktor             & \textit{User}                                                                                      \\ \hline
-			Tujuan            & Melihat luas area hijau dari kecamatan/kelurahan yang dipilih                                 \\ \hline
-			Kondisi           & \textit{User} berada pada halaman utama dari website dan telah milih kecamatan/kelurahan yang ingin dilihat \\ \hline
-			Langkah           & 1. Perangkat Lunak akan menampilkan luas area hijau dari kecamatan/kelurahan yang dipilih     \\ \hline
-		\end{tabular}%
-	}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\caption{Skenario melihat kebutuhan area hijau}
-	\label{tab:melihatKebutuhanAreaHijau}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case} & Melihat kebutuhan area hijau                                                                       \\ \hline
-			Aktor             & \textit{User}                                                                                      \\ \hline
-			Tujuan            & Melihat kebutuhan area hijau dari kecamatan/kelurahan yang dipilih                                 \\ \hline
-			Kondisi           & \textit{User }berada pada halaman utama dari website dan telah milih kecamatan/kelurahan yang ingin dilihat \\ \hline
-			Langkah           & 1. Perangkat Lunak akan menampilkan kebutuhan area hijau dari kecamatan/kelurahan yang dipilih     \\ \hline
-		\end{tabular}%
-	}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\caption[Skenario melihat gambar citra satelit]{Skenario melihat gambar citra satelit}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case} & Melihat gambar citra satelit                                                                       \\ \hline
-			Aktor             & \textit{User}                                                                                      \\ \hline
-			Tujuan            & Melihat gambar citra satelit dari kecamatan/kelurahan yang dipilih                                 \\ \hline
-			Kondisi           & \textit{User} berada pada halaman utama dari website dan telah milih kecamatan/kelurahan yang ingin dilihat \\ \hline
-			Langkah           & 1. Perangkat Lunak akan menampilkan gambar citra satelit dari kecamatan/kelurahan yang dipilih     \\ \hline
-		\end{tabular}%
-	}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\caption{Skenario mengakses ke google maps}
-	\label{tab:mengakseskegooglemaps}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case}        & Mengakses ke Google Maps                                                                           \\ \hline
-			Aktor                    & \textit{User}                                                                                      \\ \hline
-			Tujuan                   & Mengakses \textit{Google Maps }dari kecamatan/kelurahan yang dipilih                                        \\ \hline
-			Kondisi                  & \textit{User }berada pada halaman utama dari website dan telah milih kecamatan/kelurahan yang ingin dilihat \\ \hline
-			\multirow{3}{*}{Langkah} & 1. Perangkat Lunak akan menampilkan link google maps dari kecamatan/kelurahan yang dipilih         \\ \cline{2-2} 
-			& 2. User menekan link yang ditampilkan                                                              \\ \cline{2-2} 
-			& 3. User akan diarahkan ke halaman \textit{Google Maps}                                             \\ \hline
-		\end{tabular}%
-	}
-\end{table}
-
-
-\begin{table}[H]
-	\centering
-	\caption{Skenario melihat gambar luas area hijau}
-	\label{tab:melihatgambarareahijau}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|}
-			\hline
-			\textit{Use Case} & Melihat gambar luas area hijau                                                                     \\ \hline
-			Aktor             & \textit{User}                                                                                      \\ \hline
-			Tujuan            & Meliuhat gambar luas area hijau dari kecamatan/kelurahan yang dipilih                              \\ \hline
-			Kondisi           & \textit{User} berada pada halaman utama dari website dan telah milih kecamatan/kelurahan yang ingin dilihat \\ \hline
-			Langkah           & 1. Perangkat Lunak akan gambar citra satelit dari kecamatan/kelurahan yang dipilih                 \\ \hline
-			& 2. \textit{User} menekan \textit{radio button} area hijau                                                            \\ \hline
-			& 3. Perangkat Lunak akan gambar luas area hijau dari kecamatan/kelurahan yang dipilih               \\ \hline
-		\end{tabular}%
-	}
-\end{table}
