@@ -1,18 +1,18 @@
 %versi 3 (22-07-2020)
 \chapter{Analisis}
 \label{chap:analisis}
-Pada bab ini akan dijelaskan mengenai proses pengumpulan data citra satelit yang berada di Hadoop LAB Unpar, pengkonversian data \textit{text} menjadi gambar, dan bagaimana cara penggabungan gambar. Juga akan menjelaskan tetang analisis kebutuhan dalam perancangan perangkat lunak. 
+Pada bab ini akan membahas mengenai proses pengumpulan data citra satelit yang berada di Laboratium Fakultas Tenik Informatika dan Sains(FTIS) UNPAR(Universitas Katolik Parahyangan) beserta gambar citra satelit segmentasi, pengambilan data dari hasil penelitian yang telah dilakukan oleh Juan A. Kusnandji, dan analisis kebutuhan perangkat lunak dalam pengembangan halaman web.
 
 \section{Proses Pembentukan Gambar}
-Pada Gambar \ref{fig:ciumbuleuit} merupakan hasil dari penggabungan gambar per \textit{tile}. Langkah-langkah dalam proses pengambilan data berupa gambar citra satelit dari kelurahan di Kota Bandung. 
+Pada Gambar \ref{fig:ciumbuleuit3} merupakan hasil dari penggabungan gambar per \textit{tile}. Langkah-langkah dalam proses pengambilan data berupa gambar citra satelit dari kelurahan di Kota Bandung. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Gambar/Ciumbuleuit.png}
 	\caption{Gambar seluruh tile dari kelurahan Ciumbuleuit}
-	\label{fig:ciumbuleuit}
+	\label{fig:ciumbuleuit3}
 \end{figure} 
 
-Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Laboratoium Unpar. Kemudian data yang telah diambil berupa file ".txt" yang setiap baris dari file tersebut merupakan sebuah file gambar berupa \textit{tile} seperti pada gambar(\ref{fig:tileCiumbuleuit}). Kumpulan gambar per \textit{tile} akan digabungkan dengan menggunakan \textit{script}. Penggabungan gambar setiap \textit{tile} akan menghasilkan sebuah gambar dari kelurahan seperti pada gambar \ref{fig:ciumbuleuit}.
+Proses awal dilakukan meliputi data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Laboratoium FTIS UNPAR. Kemudian data yang telah diambil berupa file ".txt" yang setiap baris dari file tersebut merupakan sebuah file gambar berupa \textit{tile} seperti pada gambar(\ref{fig:tileCiumbuleuit}). Kumpulan gambar per \textit{tile} akan digabungkan dengan menggunakan \textit{script}. Penggabungan gambar setiap \textit{tile} akan menghasilkan sebuah gambar dari kelurahan seperti pada gambar \ref{fig:ciumbuleuit}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{Ciumbuleuit21.png}
@@ -24,11 +24,10 @@ Pertama-tama data yang diambil dari sistem Hadoop yang disimpan pada Hadoop Labo
 
 \subsection{Mengunduh File Text}
 
-Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada Hadoop
-HDFS.\cite{juan:22:pengumpulan} Pada proses pengunduhan data harus terlebih dahulu mendaftarkan akun HDFS pada admin laboratoium FTIS UNPAR(Universitas Katholik Parahyangan) agar mendapat akses kedalam sistem penyimpanan HDFS(\textit{Hadoop Distributed File System}). Setelah mendapatkan aksesnya, lalu dapat mengunduh data citra satelit kelurahan per kota dengan perintah seperti pada kode \ref{code:cmdhdfs}. 
+Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada HDFS.\cite{juan:22:pengumpulan} Pada proses pengunduhan data harus terlebih dahulu mendaftarkan akun HDFS pada admin laboratoium FTIS UNPAR agar mendapat akses kedalam sistem penyimpanan HDFS(\textit{Hadoop Distributed File System}). Setelah mendapatkan aksesnya, lalu dapat mengunduh data citra satelit kelurahan per kota dengan perintah seperti pada kode \ref{code:cmdhdfs}. 
 
 \begin{lstlisting}[language=Bash, caption=\textit{Command-line} HDFS,label={code:cmdhdfs}]
-	>hdfs dfs -get /user/if18059/geodata/cropped/arcgis/16/Jawa_Barat/Kota_Bandung.txt .	
+	hdfs dfs -get /user/if18059/geodata/cropped/arcgis/16/Jawa_Barat/Kota_Bandung.txt .	
 \end{lstlisting}
 
 Metode yang umum digunakan untuk mengunduh file dari server jarak jauh secara aman adalah dengan menggunakan SCP (\textit{Secure Copy Protocol}). SCP adalah perintah baris perintah yang memungkinkan pengguna untuk mentransfer file antara komputer lokal dan server jarak jauh melalui koneksi yang aman. Dalam pengunduhan file dari server dapat menggunakan perintah 'scp' diikuti oleh alamat sumber file di server dan alamat tujuan pada penyimpanan lokal. Dapat dilihat pada \textit{command-line} \ref{code:cmdscp}, akan mengunduh file 'Kota\_Bandung.txt' dari server HDFS laboratorium FTIS UNPAR ke lokasi yang ditentukan pada penyimpanan lokal. Dengan demikian, File yang telah diunduh dapat dengan mudah digunakan.
@@ -38,7 +37,7 @@ Metode yang umum digunakan untuk mengunduh file dari server jarak jauh secara am
 \end{lstlisting}
 
 Data Kota\_Bandung.txt dapat dilihat pada gambar \ref{fig:kotabandungteks}. Isi dari berkas Kota\_Bandung.txt memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan nama kota. Pada kolom ketiga diisi dengan nama provinsi. Kolom keempat diisi dengan nilai panjang tile untuk kelurahan tersebut. Kolom kelima diisi dengan nilai lebar dari tile untuk kelurahan tersebut. Kolom keenam diisi dengan posisi x koordinat tile untuk kelurahan tersebut. Kolom ketujuh diisi dengan posisi y koordinat tile untuk kelurahan tersebut. Kolom kedelapan diisi dengan ukuran luas per piksel dalam km2 untuk tile pada kelurahan tersebut. Terakhir kolom kesembilan diisi dengan data
-tile citra satelit dengan format png yang sudah dienkripsi dalam bentuk Base64.\cite{juan:22:pengumpulan}
+tile citra satelit dengan format png yang sudah dienkripsi dalam bentuk Base64\cite{juan:22:pengumpulan}.
  
 \begin{figure}[H]
 	\centering
@@ -49,7 +48,7 @@ tile citra satelit dengan format png yang sudah dienkripsi dalam bentuk Base64.\
 
 \subsection{Mengkonversi Baris Menjadi Gambar .png}
 \label{subsec:pengkorvesianBaris}
-Dalam penelitian ini, telah dikembangkan sebuah \textit{script} yang bertujuan untuk mengekstraksi gambar pertile dari data Kota\_Bandung.txt. Script yang telah dikembangkan dapat dilihat kode program \ref{code:ekstraksiGambar}.
+Dalam penelitian ini telah dikembangkan sebuah \textit{script} yang bertujuan untuk mengekstraksi gambar pertile dari data Kota\_Bandung.txt. Script yang telah dikembangkan dapat dilihat kode program \ref{code:ekstraksiGambar}.
 
 \begin{lstlisting}[language=Python, caption=Script Mengekstrasi gambar per tile,label={code:ekstraksiGambar}]
 	import base64
@@ -77,7 +76,7 @@ Dalam penelitian ini, telah dikembangkan sebuah \textit{script} yang bertujuan u
 
 \textit{Script }ini menggunakan \textit{library} base64 untuk mengelola data gambar yang disimpan dalam format base64. Pertama, \textit{script} membuka file Kota\_Bandung.txt dalam mode pembacaan ('r+'). Variabel kordinat\_x dan kordinat\_y diinisialisasi ke nilai 0. Selama iterasi berlangsung, data dari file dibaca per baris menggunakan perulangan \textit{for line in file}. Setiap baris diproses dengan membaginya menjadi elemen-elemen dengan pemisah titik koma (';'). Data gambar yang terdapat di kolom ke-8 di-\textit{decode} dari format base64 menggunakan base64.b64decode dan disimpan dalam variabel imgdata. Selanjutnya, nama file gambar ditentukan dengan menggabungkan beberapa elemen, seperti nama kelurahan, kordinat\_x, dan kordinat\_y, dan diberi ekstensi '.png'.
 
-Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam file baru dengan nama yang telah ditentukan dalam mode binary ('wb') menggunakan \textit{open} dan imgd.write. Terakhir, setelah selesai mengolah semua baris, file sumber Kota\_Bandung.txt ditutup menggunakan \textit{file.close()}. Dengan \textit{script} code ini, data gambar dalam format base64 di-\textit{extract} dan disimpan sebagai file gambar .png dengan nama yang koordinat\_x dan koordinat\_y. Hasil dari penkonversian gambar dari bari dapat dilihat pada \ref{fig:pertileciumbuleuit}.
+Gambar yang telah di-decode dan disimpan dalam 'imgdata' lalu ditulis ke dalam file baru dengan nama yang telah ditentukan dalam mode \textit{binary} ('wb') menggunakan \textit{open} dan imgd.write. Terakhir, setelah selesai mengolah semua baris, file sumber Kota\_Bandung.txt ditutup menggunakan \textit{file.close()}. Dengan \textit{script} code ini, data gambar dalam format base64 di-\textit{extract} dan disimpan sebagai file gambar .png dengan nama yang koordinat\_x dan koordinat\_y. Hasil dari penkonversian gambar dari baris dapat dilihat pada gambar \ref{fig:pertileciumbuleuit}.
 
 \begin{figure}[H]
 	\centering
@@ -114,19 +113,19 @@ Gambar yang telah di-decode dan disimpan dalam imgdata lalu ditulis ke dalam fil
 
 Selanjutnya, variabel panjang\_tile dan lebar\_tile menentukan ukuran tile, yang dalam contoh ini adalah 256 piksel. Variabel panjang\_gambar dan lebar\_gambar dihitung berdasarkan jumlah kolom dan baris, sehingga ukuran gambar akhir dapat ditentukan. Proses pembuatan gambar  dimulai dengan inisiasi variabel canvas menggunakan fungsi \textit{Image.new }dengan mode "RGB" dan ukuran gambar sesuai dengan panjang\_gambar dan lebar\_gambar. Selanjutnya, terdapat dua \textit{loop} di mana \textit{loop} pertama digunakan untuk mengatur koordinat y, dan loop kedua untuk koordinat x. Di dalam \textit{loop-loop} tersebut, variabel img digunakan untuk membuka gambar tile yang sesuai dengan koordinatnya dengan menambahkan format file yang sesuai. Gambar yang diakses melalui variabel img kemudian disisipkan ke dalam gambar utuh \textit{canvas} menggunakan fungsi \textit{paste}. Dan terakhir, \textit{canvas.save} untuk menyimpan hasil gambar akhir dengan nama sesuai dengan 'nama\_kecamatan'. Hasil akhir gambar-gambar per tile menjadi gambar utuh yang merepresentasikan wilayah atau kecamatan yang diinginkan seperti pada gambar \ref{fig:ciumbuleuit}.
 
-\section{Pembentukan Gambar Hasil Segmentasi/Klasterisasi}
+\section{Pembentukan Gambar Hasil Segmentasi}
 Pada penelitian yang telah dilakukan oleh Juan Anthonius Kusjadi menghasilkan data hasil segmentasi area hijau yang telah disimpan pada sistem \textit{data lake }yang telah dibuat pada Hadoop
-HDFS.\cite{juan:22:pengumpulan} Pengunduhan data gambar citra satelit hasil segmentasi area hijau kelurahan dapat dilakukan dengan kode perintah seperti pada kode \ref{code:cmdhdfssegmentasi}.
+HDFS\cite{juan:22:pengumpulan}. Pengunduhan data gambar citra satelit hasil segmentasi area hijau kelurahan dapat dilakukan dengan kode perintah seperti pada kode \ref{code:cmdhdfssegmentasi}.
 
 \begin{lstlisting}[language=Bash, caption= Pengembailan Data Hasil Segemntasi,label={code:cmdhdfssegmentasi}]
-	>hdfs dfs -get /user/if18059/geodata/result/kmeans-5/arcgis/16/Jawa_Barat/Kota_Bandung.csv .	
+	hdfs dfs -get /user/if18059/geodata/result/kmeans-5/arcgis/16/Jawa_Barat/Kota_Bandung.csv .	
 \end{lstlisting}
 
 Kode Perintah \ref{code:cmdhdfssegmentasi} digunakan untuk mengunduh file CSV dari HDFS dan menyimpannya di direktori lokal tempat menjalankan perintah tersebut. Perintah \texttt{hdfs dfs -get} merupakan perintah untuk mengunduh file dari HDFS. Perintah /user/if18059/geodata/result/kmeans-5~~/arcgis/16/Jawa\_Barat/Kota\_Bandung.csv adalah jalur lengkap ke file yang ingin diunduh dari HDFS. File yang dimaksud adalah \texttt{Kota\_Bandung.csv} yang terletak di direktori /user/if18059/geodata/result/\\kmeans-5/arcgis/16/Jawa\_Barat/ di HDFS. Dan Perintah titik ("\texttt{.}") merupakan tempat menyimpan file yang diunduh ke direktori lokal.
 
-File Kota\_Bandung.csv berisikan data hasil klasterisasi. Isi dari file Kota\_Bandung.csv memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan posisi x tile citra satelit. Pada kolom ketiga diisi dengan posisi y tile citra satelit. Pada kolom keempat diisi dengan nilai panjang dari tile citra satelit pada kelurahan tersebut. Pada kolom kelima diisi dengan nilai lebar dari tile citra satelit pada kelurahan tersebut. Pada kolom keenam diisi dengan data gambar citra satelit yang sudah disegmentasi dengan format png berdasarkan hasil klasterisasi dan di enkripsi menggunakan Base64. Pada kolom ketujuh diisi dengan data gambar citra satelit asli dengan format png dan di enkripsi menggunakan Base64. Pada kolom kedelapan diisi dengan nilai luas area hijau dalam km2. Terakhir pada kolom kesembilan diisi dengan nilai luas area kelurahan.\cite{juan:22:pengumpulan} 
+File Kota\_Bandung.csv berisikan data hasil klasterisasi. Isi dari file Kota\_Bandung.csv memiliki 9 kolom yang dipisahkan oleh tanda titik koma (”;”). Pada kolom pertama diisi dengan nama kelurahan. Pada kolom kedua diisi dengan posisi x \textit{tile} citra satelit. Pada kolom ketiga diisi dengan posisi y \textit{tile} citra satelit. Pada kolom keempat diisi dengan nilai panjang dari \textit{tile} citra satelit pada kelurahan tersebut. Pada kolom kelima diisi dengan nilai lebar dari \textit{tile} citra satelit pada kelurahan tersebut. Pada kolom keenam diisi dengan data gambar citra satelit yang sudah disegmentasi dengan format .png berdasarkan hasil klasterisasi dan di enkripsi menggunakan Base64. Pada kolom ketujuh diisi dengan data gambar citra satelit asli dengan format .png dan di enkripsi menggunakan Base64. Pada kolom kedelapan diisi dengan nilai luas area hijau dalam km2. Terakhir pada kolom kesembilan diisi dengan nilai luas area kelurahan\cite{juan:22:pengumpulan} .
 
-Proses pengekstrasian file Kota\_Bandung.csv berbeda dengan proses pengektrasian yang ada pada \ref{subsec:pengkorvesianBaris} dikarenakan format file yang berbeda maka script yang digunakan juga berbeda. Penggunaan script dapat pada file Kota\_Bandung.csv dilihat pada \ref{code:ekstrakCSV}. 
+Proses pengekstrasian file Kota\_Bandung.csv berbeda dengan proses pengektrasian yang ada pada sub-bab \ref{subsec:pengkorvesianBaris} dikarenakan format file yang berbeda maka \textit{script} yang digunakan juga berbeda. Penggunaan script dapat pada file Kota\_Bandung.csv dilihat pada kode program \ref{code:ekstrakCSV}. 
 \begin{lstlisting}[language=Python, caption=Script Penggabungan Gambar Hasil Klasterisasi ,label={code:ekstrakCSV}]
 	import base64
 	import csv
@@ -157,13 +156,13 @@ Proses pengekstrasian file Kota\_Bandung.csv berbeda dengan proses pengektrasian
 	
 \end{lstlisting}
 
-Script Python di atas dirancang untuk memproses data gambar tersegmen dalam format base64 yang terdapat dalam sebuah file Kota\_Bandung.csv. Script ini  bertujuan untuk mengekstrak dan mendekode data gambar tersebut, kemudian menyimpannya sebagai file gambar PNG. Fungsi utama yang terlibat dalam proses ini disebut \textit{extract\_image\_pertile}, yang akan menerima nama file CSV sebagai parameter. Fungsi tersebut membuka file Kota\_Bandung.csv, lalu membaca setiap baris, dan membaca nilai-nilai yang pentin seperti kelurahan, koordinat x dan y, serta data gambar tersegmen yang dienkripsi dalam base64. Selanjutnya, data gambar tersebut didekode menggunakan \textit{library }base64 dan disimpan sebagai file gambar PNG dengan nama sesuai dengan kelurahan yang terbentuk dari gabungan nilai-nilai kolom tertentu.
+\textit{Script} Python di atas dirancang untuk memproses data gambar tersegmen dalam format base64 yang terdapat dalam sebuah file Kota\_Bandung.csv. \textit{Script} ini  bertujuan untuk mengekstrak dan mendekode data gambar tersebut, kemudian menyimpannya sebagai file gambar dengan format .png. Fungsi utama yang terlibat dalam proses ini disebut \textit{extract\_image\_pertile}, yang akan menerima nama file .csv sebagai parameter. Fungsi tersebut membuka file Kota\_Bandung.csv, lalu membaca setiap baris, dan membaca nilai-nilai yang penting seperti kelurahan, koordinat x dan y, serta data gambar tersegmen yang dienkripsi dalam base64. Selanjutnya, data gambar tersebut didekode menggunakan \textit{library }base64 dan disimpan sebagai file gambar .png dengan nama sesuai dengan kelurahan yang terbentuk dari gabungan nilai-nilai kolom tertentu.
 
-Dalam bagian utama script, terdapat pemanggilan fungsi \textit{extract\_image\_pertile }dengan menyertakan nama file Kota\_Bandung.csv yang akan diproses. Sebagai tambahan, script ini mengatur batas ukuran untuk file CSV dengan csv. Fungsi \textit{field\_size\_limit} untuk menangani batasan ukuran default yang ada. Dengan menjalankan script ini, file gambar PNG akan dihasilkan untuk setiap baris. Gambar dari setiap baris tersebut merupakan gambar pertile dari tiap kelurahan.
+Dalam bagian utama \textit{script}, terdapat pemanggilan fungsi \textit{extract\_image\_pertile }dengan menyertakan nama file Kota\_Bandung.csv yang akan diproses. Sebagai tambahan, script ini mengatur batas ukuran untuk file .csv dengan \textit{library } csv yang telah disediakan oleh Python. Fungsi \textit{field\_size\_limit} untuk menangani batasan ukuran default yang ada. Dengan menjalankan \textit{script} ini, file gambar .png akan dihasilkan untuk setiap baris. Gambar dari setiap baris tersebut merupakan gambar pertile dari tiap kelurahan.
 
-Setelah mendapatkan gambar per tile langkah selanjut yaitu menggabungkan gambar. Proses penggabungan gambar segmentasi area hijau sama dengan proses penggabungan gambar kelurahan sebelum segmentasi. Pada proses tersebut dapat dilihat pada bab \ref{subsec:gabunggambar}.
+Setelah mendapatkan gambar per tile langkah selanjut yaitu menggabungkan gambar. Proses penggabungan gambar segmentasi area hijau sama dengan proses penggabungan gambar kelurahan sebelum segmentasi. Pada proses tersebut dapat dilihat pada sub-bab \ref{subsec:gabunggambar}.
 
-Dalam pencarian data gambar hasil segmentasi ditemukan data berupa file Bandung.txt. Setelah melakukan pemprosesan pada data file Bandung.txt, file tersebut merupakan data file dari Kabupaten Bandung. File Bandung.txt juga memiliki beberapa kolom yang menunjukan nama kelurahan, nama kabupaten, nama provinsi, panjang tile, lebar tile, koordinat tile(x,y), data poligon,dan , tile citra satelit yang di encode menggunakan Base64. Proses pengecekan file tersebut dilakukan dengan menggunakan \textit{script} python yang dikembangkan.
+Dalam pencarian data gambar hasil segmentasi ditemukan data berupa file Bandung.txt. Setelah melakukan pemprosesan pada data file Bandung.txt, file tersebut merupakan data file dari Kabupaten Bandung. File Bandung.txt juga memiliki beberapa kolom yang menunjukan nama kelurahan, nama kabupaten, nama provinsi, panjang tile, lebar tile, koordinat tile(x,y), data poligon, dan  \textit{tile} citra satelit yang di encode menggunakan Base64. Proses pengecekan file tersebut dilakukan dengan menggunakan \textit{script} python yang dikembangkan.
 
 \begin{lstlisting}[language=Python, caption=Script Pengecekan File .txt,label={code:cekData}]
 	#cek per satu kelurahan
@@ -183,13 +182,24 @@ Dalam pencarian data gambar hasil segmentasi ditemukan data berupa file Bandung.
 	file.close()
 \end{lstlisting}
 
-Setelah \textit{script} \ref{code:cekData} dijalakan ternyata terdapat data yang hilang. Sehingga saat melakukan pengekstraksian \ref{code:ekstraksiGambar} gambar ada beberapa tile yang tidak hilang. Tile-tile yang hilang mengakibatkan gambar tidak dapat digabung menjadi sebuah gambar utuh dari kelurahan kabupaten. Contoh data dari Bandung.txt dapat dilihat pada gambar. Dari gambar tersebut bahwa nama kelurahan kabupaten adalah Kopo, dilanjutkan dengan nama kabupaten Bandung, provinsi Jawa Barat, lebar tile dan panjang tile. Pada kolom koordinat x dan y ada beberapa yang hilang. Data yang hilang adalah nilai x = 0, dan nilai y = 2 tidak terdapat pada kolom.
+Setelah \textit{script} \ref{code:cekData} dijalakan ternyata terdapat data yang hilang. Data yang hilang saat melakukan pengekstraksian gambar adalah beberapa \textit{tile} pada kelurahan tersebut. \textit{Tile-tile} yang hilang mengakibatkan gambar tidak dapat digabung menjadi sebuah gambar utuh dari kelurahan kabupaten. Contoh data dari Bandung.txt dapat dilihat pada gambar \ref{fig:kabupatenKopo}. Dari gambar tersebut bahwa nama kelurahan kabupaten adalah Kopo, dilanjutkan dengan nama kabupaten Bandung, provinsi Jawa Barat, lebar tile dan panjang tile. Pada kolom koordinat x dan y ada beberapa yang hilang. Data yang hilang adalah nilai x = 0, dan nilai y = 2 tidak terdapat pada kolom.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Gambar/kabupatenKopo.png}
 	\caption{Proses pengecekan file Bandung.txt}
 	\label{fig:kabupatenKopo}
-\end{figure}  
+\end{figure}
+
+
+\section{Pengumpulan Data Kelurahan}
+\label{sec:pengambilan-data-kelurahan}
+Proses pengumpulan data kelurahan yang didapatkan dari hasil penelitian yang telah dilakukan oleh Juan A. Kusjadi. Data yang ditemukan merupakan hasil perhitungan luas wilayah kelurahan dan wilayah RTH kelurahan di Kota Bandung dengan menggunakan algoritma KMeans dengan k=5 dalam pendekatan \textit{pixel based}\cite{juan:22:pengumpulan}. Hasil dari penelitian tersebut didapat dari lampiran hasil eksperimen yang berisikan nama kelurahan, luas kelurahan sesungguhnya dalam satuan km2, luas kelurahan preidiksi dalam satuan km2, luas RTH kelurahan prediksi dalam satuan km2, dan persentase RTH kelurahan.
+%tambahkan foootnote tentang mysql dan xampp
+
+Proses penginputan data dari hasil penelitian dan sumber data eksternal dilakukan secara manual dengan memasukkan data satu per satu melalui phpMyAdmin yang merupakan sebuah aplikasi berbasis web yang disediakan oleh XAMPP  untuk memudahkan dalam penyimpanan basis data MySQL. Pembuatan tabel pada MySQL dinamai dengan 'data\_wilayah'. Tabel tersebut berisikan kolom id sebagai \textit{primary key}, nama\_kelurahan, luas\_kelurahan, luas\_kelurahan\_prediksi, luas\_rth\_kelurahan dan persentase\_rth\_kelurahan. Data eksternal yang ditambahkan kedalam tabel yaitu link\_googlemaps yang berisikan tautan google maps sesuai dengan data kelurahan. 
+
+Dengan demikian, proses pengambilan data kelurahan telah dipindahkan kedalam basis data. Data-data tersebut nantinya akan digunakan dalam pengembangan perangkat lunak.  
+
 
 \section{Analisis Perangkat Lunak}
 Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seorang pengguna untuk menjalankan sebuah perangkat lunak yang akan dikembankan. Sehingga segala proses sistem dijalankan oleh aktor yang terlibat. Dalam sistem ini hanya memiliki aktor sebagai \textit{user}. Seorang pemangku kepentingan atau pembuat keputusan memegang peranan sebagai \textit{user} itu sendiri. Dalam menggambarkan peranan pengguna terhadap interaksinya dengan sistem, maka dapat dilihat pada diagram \textit{use case} yang terdapat pada Gambar~\ref{fig:useCaseUser} berikut.
