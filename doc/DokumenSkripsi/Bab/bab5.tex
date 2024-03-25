@@ -54,7 +54,7 @@ Lampiran \ref{lamp:basis-data} merupakan kode program yang digunakan dalam menam
 Implementasi perangkat lunak 'Pemvisualisasi Kelurahan Kota Bandung' dibangun dengan menggunakan bahasa pemrograman PHP dengan menggunakan \textit{framework} Laravel. Hasil  dari implementasi antarmuka saat perangkat lunak dijalankan pertama kali dapat di lihat pada gambar \ref{fig:home1}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Gambar/home1.png}
+	\includegraphics[width=0.8\textwidth]{Gambar/home1new.png}
 	\caption{Antarmuka Halaman Utama}
 	\label{fig:home1}
 \end{figure}
@@ -62,21 +62,21 @@ Implementasi perangkat lunak 'Pemvisualisasi Kelurahan Kota Bandung' dibangun de
 Pengguna  memilih kelurahan yang ingin dilihat dengan cara menekan \textit{dropdown} yang akan menampilkan pilihan-pilihan kelurahan di kota Bandung. Implementasi antarmuka saat memilih kelurahan dapat dilihat pada  gambar \ref{fig:home2}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Gambar/home2.png}
+	\includegraphics[width=0.8\textwidth]{Gambar/home2new.png}
 	\caption{Antarmuka Halaman Utama (\textit{Dropdown})}
 	\label{fig:home2}
 \end{figure} 
 Setelah pengguna memilih kelurahan maka perangkat lunak akan menampilkan data dari setiap kelurahan dapat dilihat pada gambar \ref{fig:home3}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Gambar/home3.png}
+	\includegraphics[width=0.8\textwidth]{Gambar/home3new.png}
 	\caption{Antarmuka Halaman Utama Menampilkan Data Kelurahan}
 	\label{fig:home3}
 \end{figure} 
 Pengguna dapat memilih gambar hasil segmentasi area hijau dengan cara menekan \textit{radio-button} segmentasi,  maka tampilan rancangan antarmuka akan dapat dilihat seperti pada gambar \ref{fig:home5}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Gambar/home5.png}
+	\includegraphics[width=0.8\textwidth]{Gambar/home5new.png}
 	\caption{Antarmuka Halaman Utama Menampilkan Gambar Citra Satelit Segementai}
 	\label{fig:home5}
 \end{figure} 
@@ -128,19 +128,19 @@ Pengujian fugsional dilakukan untuk mengetahui apakah fungsi-fungsi, masukan dan
 			\hline
 			\textbf{Nama Fungsi}                         & \textbf{Kelurahan}  & \textbf{Hasil yang Diharapkan}                                                                                                            & \textbf{Hasil Pengujian}                                                                                                                  \\ 
 			\hline
-			Memilih kelurahan                            & Ciumbuleuit & Dropdown berisikan nama-nama kelurahan dan dapat dipilih                                                                                  & Dropdown berisikan nama-nama kelurahan dan dapat dipilih                                                                                  \\ 
+			Memilih kelurahan                            & Ciumbuleuit & Dropdown berisikan nama-nama kelurahan dan dapat dipilih                                                                                  & Dropdown berisikan daftar kelurahan yang terurut berdasarkan abjad dan memilih kelurahan Ciumbuleuit\\ 
 			\hline
-			Menampilkan Luas Wilayah                     & Ciumbuleuit  & Perangkat lunak akan menampilkan informasi berupa luas wilayah kelurahan yang dipilih                                                     & Perangkat lunak menampilkan informasi berupa luas wilayah kelurahan yang dipilih                                                          \\ 
+			Menampilkan Luas Wilayah                     & Ciumbuleuit  & Perangkat lunak akan menampilkan informasi berupa luas wilayah kelurahan yang dipilih                                                     & Perangkat lunak menampilkan informasi berupa luas wilayah kelurahan Ciumbuleuit dengan ukuran 4.1999 km\textsuperscript{2}                                                          \\ 
 			\hline
-			Menampilkan Luas Area Hijau                  & Ciumbuleuit  & Perangkat lunak akan menampilkan informasi berupa luas area hijau kelurahan  yang dipilih                                                 & Perangkat lunak menampilkan informasi berupa luas area hijau kelurahan yang dipilih                                                       \\ 
+			Menampilkan Luas Area Hijau                  & Ciumbuleuit  & Perangkat lunak akan menampilkan informasi berupa luas area hijau kelurahan  yang dipilih                                                 & Perangkat lunak menampilkan informasi berupa luas area hijau kelurahan Ciumbuleuit dengan ukuran 2.6616 km\textsuperscript{2}                                                     \\ 
 			\hline
 			Menampilkan Kebutuhan Luas Area Hijau        & Ciumbuleuit  & Perangkat lunak akan menampilkan informasi berupa kebutuhan luas area hijau kelurahan yang dipilih                                        & Perangat lunak belum bisa menampilkan informasi berupa kebutuhan luas area hijau kelurahan yang dipilih                                   \\ 
+			\hline	
+			Menampilkan Gambar Citra Satelit             & Ciumbuleuit  & Perangkat lunak akan menampilkan gambar dari kelurahan                                                                                    & Perangkat lunak menampilkan gambar dari kelurahan Ciumbuleuit                                                         \\ 
 			\hline
-			Menampilkan Gambar Citra Satelit             & Ciumbuleuit  & Perangkat lunak akan menampilkan gambar dari kelurahan                                                                                    & Perangkat lunak menampilkan gambar dari kelurahan yang dipilih                                                                            \\ 
+			Menampilkan Link Google Maps                 & Ciumbuleuit  & Perangkat lunak akan menampilkan link google maps dan jika ditekan akan alihkan kehalaman googlemaps sesuai dengan kelurahan yang dipilih & Perangkat lunak menampilkan link google maps dari kelurahan Ciumbuluit dan jika ditekan akan dialihkan ke halaman google maps yang menampilkan kelurahan Ciumbuleuit \\ 
 			\hline
-			Menampilkan Link Google Maps                 & Ciumbuleuit  & Perangkat lunak akan menampilkan link google maps dan jika ditekan akan alihkan kehalaman googlemaps sesuai dengan kelurahan yang dipilih & Perangkat lunak menampilkan link google maps dan jika ditekan akan dialihkan ke halaman google maps sesuai dengan kelurahan yang dipilih  \\ 
-			\hline
-			Menampilkan Gambar Segemetasi  Citra Satelit & Ciumbuleuit  & Perangkat lunak akan menampilkan gambar segmentasi citra satelit pada saat radio button segmentasi ditekan                                & Perangkan lunak menampilkan gambar segmentasi citra satelit pada saat radio button segementasi ditekan                                    \\
+			Menampilkan Gambar Segemetasi  Citra Satelit & Ciumbuleuit  & Perangkat lunak akan menampilkan gambar segmentasi citra satelit pada saat radio button segmentasi ditekan                                & Perangkan lunak menampilkan gambar segmentasi citra satelit dari kelurahan Ciumbuluit pada saat radio button segementasi ditekan                                    \\
 			\hline
 		\end{tabular}
 	}
@@ -155,19 +155,19 @@ Pengujian fugsional dilakukan untuk mengetahui apakah fungsi-fungsi, masukan dan
 			\hline
 			\textbf{Nama Fungsi}                         & \textbf{Kelurahan}  & \textbf{Hasil yang Diharapkan}                                                                                                            & \textbf{Hasil Pengujian}                                                                                                                  \\ 
 			\hline
-			Memilih kelurahan                            & Dago & Dropdown berisikan nama-nama kelurahan dan dapat dipilih                                                                                  & Dropdown berisikan nama-nama kelurahan dan dapat dipilih                                                                                  \\ 
+			Memilih kelurahan                            & Dago & Dropdown berisikan nama-nama kelurahan dan dapat dipilih                                                                                  & Dropdown berisikan daftar nama kelurahan yang terurut dan memilih kelurahan Dago\\ 
 			\hline
-			Menampilkan Luas Wilayah                     & Dago  & Perangkat lunak akan menampilkan informasi berupa luas wilayah kelurahan yang dipilih                                                     & Perangkat lunak menampilkan informasi berupa luas wilayah kelurahan yang dipilih                                                          \\ 
+			Menampilkan Luas Wilayah                     & Dago  & Perangkat lunak akan menampilkan informasi berupa luas wilayah kelurahan yang dipilih                                                     & Perangkat lunak menampilkan informasi berupa luas wilayah kelurahan Dago dengan ukuran 2.6623 km\textsuperscript{2} \\ 
 			\hline
-			Menampilkan Luas Area Hijau                  & Dago  & Perangkat lunak akan menampilkan informasi berupa luas area hijau kelurahan  yang dipilih                                                 & Perangkat lunak menampilkan informasi berupa luas area hijau kelurahan yang dipilih                                                       \\ 
+			Menampilkan Luas Area Hijau                  & Dago  & Perangkat lunak akan menampilkan informasi berupa luas area hijau kelurahan  yang dipilih                                                 & Perangkat lunak menampilkan informasi berupa luas area hijau kelurahan Dago dengan ukuran 0.9945 km\textsuperscript{2}                                                       \\ 
 			\hline
 			Menampilkan Kebutuhan Luas Area Hijau        & Dago  & Perangkat lunak akan menampilkan informasi berupa kebutuhan luas area hijau kelurahan yang dipilih                                        & Perangat lunak belum bisa menampilkan informasi berupa kebutuhan luas area hijau kelurahan yang dipilih                                   \\ 
+			\hline	
+			Menampilkan Gambar Citra Satelit             & Dago  & Perangkat lunak akan menampilkan gambar dari kelurahan                                                                                    & Perangkat lunak menampilkan gambar dari kelurahan Dago                                                   \\ 
 			\hline
-			Menampilkan Gambar Citra Satelit             & Dago  & Perangkat lunak akan menampilkan gambar dari kelurahan                                                                                    & Perangkat lunak menampilkan gambar dari kelurahan yang dipilih                                                                            \\ 
+			Menampilkan Link Google Maps                 & Dago  & Perangkat lunak akan menampilkan link google maps dan jika ditekan akan alihkan kehalaman googlemaps sesuai dengan kelurahan yang dipilih & Perangkat lunak menampilkan link google maps kelurahan Dago dan jika ditekan akan dialihkan ke halaman google maps yang menampilkan kelurahan Dago\\ 
 			\hline
-			Menampilkan Link Google Maps                 & Dago  & Perangkat lunak akan menampilkan link google maps dan jika ditekan akan alihkan kehalaman googlemaps sesuai dengan kelurahan yang dipilih & Perangkat lunak menampilkan link google maps dan jika ditekan akan dialihkan ke halaman google maps sesuai dengan kelurahan yang dipilih  \\ 
-			\hline
-			Menampilkan Gambar Segemetasi  Citra Satelit & Dago  & Perangkat lunak akan menampilkan gambar segmentasi citra satelit pada saat radio button segmentasi ditekan                                & Perangkan lunak menampilkan gambar segmentasi citra satelit pada saat radio button segementasi ditekan                                    \\
+			Menampilkan Gambar Segemetasi  Citra Satelit & Dago  & Perangkat lunak akan menampilkan gambar segmentasi citra satelit pada saat radio button segmentasi ditekan                                & Perangkan lunak menampilkan gambar segmentasi citra satelit kelurahan Dago pada saat radio button segementasi ditekan                                    \\
 			\hline
 		\end{tabular}
 	}
@@ -177,15 +177,16 @@ Pengujian fugsional dilakukan untuk mengetahui apakah fungsi-fungsi, masukan dan
 \subsection{Pengujian Eksperimental}
 \label{subsec:pengujian-eksperimental}
 
-Pada tahap ini penguji diberikan kesempatan untuk menggunakan semua fitur yang ada pada Perangkat Lunak Pemvisualisasi Hasil Penelitian Area Hijau Kelurahan. Penguji yang melakukan pengujian ini merupakan masyarakat yang tinggal di daerah Kota Bandung. Tujuan dilakukannya pengujian ini adalah untuk menguji kemudahan dalam menjalankan perangkat lunak. Setelah penguji menggunakan Perangkat Lunak Pemvisualisasi Hasil Penelitian Area Hijau Kelurahan Kota Bandung, penguji diminta untuk mengisi kuesioner untuk memberikan tanggapan dan saran terhadap pengembangan perangkat lunak ini. Pertanyaan pada kuesioner ini adalah sebagai berikut:
+Pada tahap ini penguji diberikan kesempatan untuk menggunakan semua fitur yang ada pada Perangkat Lunak Pemvisualisasi Hasil Penelitian Area Hijau Kelurahan. Penguji yang melakukan pengujian ini merupakan masyarakat yang tinggal di daerah Kota Bandung. Tujuan dilakukannya pengujian ini adalah untuk menguji kemudahan dalam menjalankan perangkat lunak. Setelah penguji menggunakan Perangkat Lunak Pemvisualisasi Hasil Penelitian Area Hijau Kelurahan Kota Bandung, penguji diminta untuk mengisi kuesioner untuk memberikan tanggapan dan saran terhadap pengembangan perangkat lunak ini. Pernyataan pada kuesioner ini adalah sebagai berikut:
 \begin{enumerate}
-	\item Apakah perangkat lunak berjalan dengan baik (tidak ada crash atau error) dan dapat menampilkan informasi tentang area hijau di kelurahan dengan mudah?
-	\item Apakah perangkat lunak menyediakan perbandingan area hijau antara kelurahan?
-	\item Seberapa mudah Anda dapat membandingkan data area hijau di beberapa kelurahan?
-	\item Apakah terdapat visualisasi data seperti gambar kelurahan yang membantu Anda memahami distribusi area hijau di kelurahan?
-	\item Seberapa memuaskan Anda dengan presentasi informasi tentang area hijau di kelurahan?
-	\item Seberapa mudah website atau perangkat lunak ini digunakan untuk mengeksplorasi informasi tentang area hijau di kelurahan?
-	\item Apakah hasil yang dikeluarkan sesuai dengan harapan?
+	\item Perangkat lunak atau website berjalan dengan baik (tidak ada crash atau error) dan dapat menampilkan informasi tentang area hijau di kelurahan dengan mudah hijau di kelurahan dengan mudah?
+	\item Perangkat lunak atau website menyediakan perbandingan area hijau antara kelurahan
+	\item Perangkat lunak atau website memudahkan Saya untuk membandingkan informasi area hijau dibeberapa kelurahan
+	\item Terdapat visualisasi informasi seperti gambar kelurahan yang membantu Saya memahami distribusi area hijau di kelurahan
+	\item Informasi tentang area hijau tersampaikan dengan baik
+	\item Perangkat lunak atau website ini dapat memudahkan Saya untuk  mengeksplorasi informasi tentang area hijau di kelurahan
+	\item Hasil yang dikeluarkan pada perangkat lunak atau website sesuai dengan harapan 
+	\item Di daerah manakah Anda tinggal  dan Bagaimana tanggapan Anda melihat informasi berupa luas area hijau di kelurahan Anda?
 	\item Saran yang ingin disampaikan
 \end{enumerate}
 

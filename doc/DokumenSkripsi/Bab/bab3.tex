@@ -202,21 +202,40 @@ Dengan demikian, proses pengambilan data kelurahan telah dipindahkan kedalam bas
 
 
 \section{Analisis Perangkat Lunak}
-Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seorang pengguna untuk menjalankan sebuah perangkat lunak yang akan dikembankan. Sehingga segala proses sistem dijalankan oleh aktor yang terlibat. Dalam sistem ini hanya memiliki aktor sebagai \textit{user}. Seorang pemangku kepentingan atau pembuat keputusan memegang peranan sebagai \textit{user} itu sendiri. Dalam menggambarkan peranan pengguna terhadap interaksinya dengan sistem, maka dapat dilihat pada diagram \textit{use case} yang terdapat pada Gambar~\ref{fig:useCaseUser} berikut.
+Proses analisis perangkat lunak merupakan kebutuhan yang memerlukan peranan seorang pengguna untuk menjalankan sebuah perangkat lunak yang akan dikembangkan. Sehingga segala proses sistem dijalankan oleh aktor yang terlibat. Dalam sistem ini hanya memiliki aktor sebagai \textit{user}. Seorang pemangku kepentingan atau pembuat keputusan memegang peranan sebagai \textit{user} itu sendiri. Dalam menggambarkan peranan pengguna terhadap interaksinya dengan sistem, maka dapat dilihat pada diagram \textit{use case} yang terdapat pada Gambar~\ref{fig:useCaseUser} berikut.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{Gambar/UseCaseUser.png}
+	\includegraphics[scale=0.8]{Gambar/usecasediagram.png}
 	\caption[Diagram \textit{Use Case} \textit{User}]{Diagram \textit{Use Case} \textit{User}}
 	\label{fig:useCaseUser}
 \end{figure}
 
-Pada Gambar~\ref{fig:useCaseUser}, seorang aktor atau \textit{user} pada sistem berperan dalam memegang akses penuh ke dalam sistem. Dalam hal ini \textit{user} dapat masuk ke dalam sistem yang telah dibangun, dapat memilih kelurahan yang ingin dilihat. Setiap kelurahan yang dipilih \textit{user} dapat melihat luas wilayah, luas area hijau, kebutuhan area hijau, gambar citra satelit/gambar luas area hijau, dan juga dapat mengakses ke halaman \textit{Google Maps} yang merujuk ke lokasi kelurahan yang dipilih.
+Pada Gambar~\ref{fig:useCaseUser}, seorang aktor atau \textit{user} pada sistem berperan dalam memegang akses penuh ke dalam sistem. Dalam hal ini \textit{user} dapat masuk ke dalam sistem yang telah dibangun. \textit{User} dapat memilih kelurahan pertama dan kedua yang ingin dilihat. Setiap kelurahan yang dipilih \textit{user} akan menampilkan informasi luas wilayah, luas area hijau, kebutuhan area hijau, gambar citra satelit/gambar luas area hijau, dan juga dapat mengakses ke halaman \textit{Google Maps} yang merujuk ke lokasi kelurahan yang dipilih.
 	
 Berdasarkan diagram \textit{use case }pada Gambar \ref{fig:useCaseUser}, berikut adalah daftar skenario unutk setiap \textit{use case:}	
 
 \begin{enumerate}
-	\item Use Case: Melihat kelurahan \\
+	\item Use Case: Melihat kelurahan 1 \\
+	\textit{\textbf{Actor}}: Pengguna \\
+	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
+	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kelurahan dipilih\\
+	\textit{\textbf{Steps: }}
+	\begin{table}[H]
+		\centering
+		\resizebox{0.8\columnwidth}{!}{%
+			\begin{tabular}{|l|l|}
+				\hline
+				\textit{\textbf{Actor Actions}}                           & \textit{\textbf{System Response}}          \\ \hline
+				\multirow{2}{*}{Pengguna menekan pada dropdown kelurahan} & \multirow{2}{*}{}                          \\
+				&                                            \\
+				& Dropdown akan menampilakan daftar kelurahan \\
+				Pengguna dapat memilih salah satu kelurahan               &                                            \\
+				& Ditampilkan informasi dari kelurahan       \\ \hline
+			\end{tabular}%
+		}
+	\end{table}
+	\item Use Case: Melihat kelurahan 2 \\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna telah dapat mengakses website dan berada pada halaman utama website\\
 	\textit{\textbf{Post Condition:}} Pengguna melihat infromasi dari kelurahan dipilih\\
@@ -236,6 +255,7 @@ Berdasarkan diagram \textit{use case }pada Gambar \ref{fig:useCaseUser}, berikut
 		}
 	\end{table}
 	
+	\begin{comment}
 	\item Use Case: Melihat luas wilayah kelurahan\\
 	\textit{\textbf{Actor}}: Pengguna \\
 	\textit{\textbf{Pre Condition: }}Pengguna berada pada halaman utama website dan telah memilih kelurahan yang ingin dilihat\\
@@ -339,4 +359,5 @@ Berdasarkan diagram \textit{use case }pada Gambar \ref{fig:useCaseUser}, berikut
 			\end{tabular}%
 		}
 	\end{table}
+	\end{comment}
 \end{enumerate}
